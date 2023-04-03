@@ -6,11 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.RoutineSliderItemBinding
-import com.example.gymroutines.model.RoutineItem
 import com.example.gymroutines.model.SliderItem
 
-class RoutinesAdapter : ListAdapter<SliderItem, RoutinesAdapter.ViewHolder>(RoutineDiff) {
-    object RoutineDiff : DiffUtil.ItemCallback<SliderItem>() {
+class RoutinesAdapter : ListAdapter<SliderItem, RoutinesAdapter.ViewHolder>(SliderDiff) {
+    object SliderDiff : DiffUtil.ItemCallback<SliderItem>() {
         override fun areItemsTheSame(oldItem: SliderItem, newItem: SliderItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -24,7 +23,10 @@ class RoutinesAdapter : ListAdapter<SliderItem, RoutinesAdapter.ViewHolder>(Rout
         RecyclerView.ViewHolder(binding.root) {
         fun bind(slider: SliderItem) {
             binding.tvSliderTitle.text = slider.title
-            //binding.recycleViewRoutines
+
+            val adapter = RoutinesSliderAdapter()
+            binding.recycleViewRoutines.adapter = adapter
+            adapter.submitList(slider.routinesList)
         }
     }
 
