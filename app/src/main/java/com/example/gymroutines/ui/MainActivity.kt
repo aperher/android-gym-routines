@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.ActivityMainBinding
+import com.example.gymroutines.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
 
-        viewModel.goToSignIn.observe(this@MainActivity) {
+        viewModel.goToSignIn.observe(this@MainActivity) { it ->
             it.getContentIfNotHandled()?.let {
                 if (it) {
                     goToSignIn()

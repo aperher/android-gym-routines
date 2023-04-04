@@ -10,7 +10,7 @@ import com.example.gymroutines.databinding.RoutineSliderItemBinding
 import com.example.gymroutines.model.RoutineItem
 import com.example.gymroutines.model.SliderItem
 
-class RoutinesSliderAdapter : ListAdapter<RoutineItem, RoutinesSliderAdapter.ViewHolder>(RoutineDiff) {
+class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Unit) : ListAdapter<RoutineItem, RoutinesSliderAdapter.ViewHolder>(RoutineDiff) {
     object RoutineDiff : DiffUtil.ItemCallback<RoutineItem>() {
         override fun areItemsTheSame(oldItem: RoutineItem, newItem: RoutineItem): Boolean {
             return oldItem.id == newItem.id
@@ -23,6 +23,16 @@ class RoutinesSliderAdapter : ListAdapter<RoutineItem, RoutinesSliderAdapter.Vie
 
     inner class ViewHolder(private val binding: RoutineItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val routine = getItem(position)
+                    onItemClicked(routine.id)
+                }
+            }
+        }
         fun bind(routine: RoutineItem) {
             binding.title.text = routine.title
             //binding.image.setImageResource(routine.image)

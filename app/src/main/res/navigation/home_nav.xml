@@ -9,10 +9,23 @@
         android:id="@+id/routinesFragment"
         android:name="com.example.gymroutines.ui.Home.routines.RoutinesFragment"
         android:label="RoutinesFragment"
-        tools:layout="@layout/fragment_routines" />
+        tools:layout="@layout/fragment_routines" >
+        <action
+            android:id="@+id/action_routinesFragment_to_routineDetails"
+            app:destination="@id/routineDetails"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.gymroutines.ui.Home.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/routineDetails"
+        android:name="com.example.gymroutines.ui.Home.routineDetails.RoutineDetails"
+        android:label="RoutineDetails"
+        tools:layout="@layout/fragment_routine_details"/>
 </navigation>
