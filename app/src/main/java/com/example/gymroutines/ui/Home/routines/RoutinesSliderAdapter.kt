@@ -6,17 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.RoutineItemBinding
-import com.example.gymroutines.databinding.RoutineSliderItemBinding
-import com.example.gymroutines.model.RoutineItem
 import com.example.gymroutines.model.SliderItem
 
-class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Unit) : ListAdapter<RoutineItem, RoutinesSliderAdapter.ViewHolder>(RoutineDiff) {
-    object RoutineDiff : DiffUtil.ItemCallback<RoutineItem>() {
-        override fun areItemsTheSame(oldItem: RoutineItem, newItem: RoutineItem): Boolean {
+class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Unit) : ListAdapter<SliderItem.RoutineItem, RoutinesSliderAdapter.ViewHolder>(RoutineDiff) {
+    object RoutineDiff : DiffUtil.ItemCallback<SliderItem.RoutineItem>() {
+        override fun areItemsTheSame(oldItem: SliderItem.RoutineItem, newItem: SliderItem.RoutineItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: RoutineItem, newItem: RoutineItem): Boolean {
+        override fun areContentsTheSame(oldItem: SliderItem.RoutineItem, newItem: SliderItem.RoutineItem): Boolean {
             return oldItem == newItem
         }
     }
@@ -33,7 +31,7 @@ class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Un
                 }
             }
         }
-        fun bind(routine: RoutineItem) {
+        fun bind(routine: SliderItem.RoutineItem) {
             binding.title.text = routine.title
             //binding.image.setImageResource(routine.image)
         }

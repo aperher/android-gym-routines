@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="10dp">
+    android:paddingVertical="10dp"
+    android:paddingStart="16dp">
 
     <TextView
         android:id="@+id/tvSliderTitle"
@@ -23,5 +24,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvSliderTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvSliderTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSliderTitle"
+        tools:listitem="@layout/routine_item"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,15 +5,14 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
-import com.example.gymroutines.databinding.FragmentHomeBinding
 import com.example.gymroutines.databinding.FragmentRoutinesBinding
-import com.example.gymroutines.model.RoutineItem
 import com.example.gymroutines.model.SliderItem
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RoutinesFragment : Fragment(R.layout.fragment_routines) {
     private var _binding: FragmentRoutinesBinding? = null
     private val binding get() = _binding!!
@@ -54,57 +53,71 @@ class RoutinesFragment : Fragment(R.layout.fragment_routines) {
     }
 
     private fun initAdapter() {
-        val adapter = RoutinesAdapter { routineId ->
-            viewModel.onRoutineClicked(routineId)
-        }
-        binding.recyclerView.adapter = adapter
-        adapter.submitList(
-            listOf<SliderItem>(
+        var list = mutableListOf<SliderItem>(
                 SliderItem(
                     "id", "Creadas por mi",
-                    listOf<RoutineItem>(
-                        RoutineItem("id1", "Mi 6 pack", "url"),
-                        RoutineItem("id2", "Burning abs", "url"),
-                        RoutineItem("id3", "Mi 6 pack", "url"),
-                        RoutineItem("id4", "Burning abs", "url"),
-                        RoutineItem("id5", "Mi 6 pack", "url"),
-                        RoutineItem("id6", "Burning abs", "url")
+                    listOf<SliderItem.RoutineItem>(
+                        SliderItem.RoutineItem("id1", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id2", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id3", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id4", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id5", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id6", "Burning abs", "url")
                     ),
                 ),
                 SliderItem(
                     "id", "Rutinas guardadas",
-                    listOf<RoutineItem>(
-                        RoutineItem("id7", "Mi 6 pack", "url"),
-                        RoutineItem("id8", "Burning abs", "url"),
-                        RoutineItem("id9", "Mi 6 pack", "url"),
-                        RoutineItem("id10", "Burning abs", "url"),
-                        RoutineItem("id11", "Mi 6 pack", "url"),
-                        RoutineItem("id12", "Burning abs", "url")
+                    listOf<SliderItem.RoutineItem>(
+                        SliderItem.RoutineItem("id7", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id8", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id9", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id10", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id11", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id12", "Burning abs", "url")
                     ),
                 ),
                 SliderItem(
                     "id", "Más populares",
-                    listOf<RoutineItem>(
-                        RoutineItem("id13", "Mi 6 pack", "url"),
-                        RoutineItem("id14", "Burning abs", "url"),
-                        RoutineItem("id15", "Mi 6 pack", "url"),
-                        RoutineItem("id16", "Burning abs", "url"),
-                        RoutineItem("id17", "Mi 6 pack", "url"),
-                        RoutineItem("id18", "Burning abs", "url")
+                    listOf<SliderItem.RoutineItem>(
+                        SliderItem.RoutineItem("id13", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id14", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id15", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id16", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id17", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id18", "Burning abs", "url")
                     ),
                 ),
                 SliderItem(
                     "id", "De la comunidad",
-                    listOf<RoutineItem>(
-                        RoutineItem("id19", "Mi 6 pack", "url"),
-                        RoutineItem("id20", "Burning abs", "url"),
-                        RoutineItem("id21", "Mi 6 pack", "url"),
-                        RoutineItem("id22", "Burning abs", "url"),
-                        RoutineItem("id23", "Mi 6 pack", "url"),
-                        RoutineItem("id24", "Burning abs", "url")
+                    listOf<SliderItem.RoutineItem>(
+                        SliderItem.RoutineItem("id19", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id20", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id21", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id22", "Burning abs", "url"),
+                        SliderItem.RoutineItem("id23", "Mi 6 pack", "url"),
+                        SliderItem.RoutineItem("id24", "Burning abs", "url")
                     ),
                 )
             )
-        )
+
+        val adapter = RoutinesCatalogAdapter(list) { routineId ->
+            viewModel.onRoutineClicked(routineId)
+        }
+
+        binding.recyclerView.adapter = adapter
+
+        list = mutableListOf(SliderItem(
+            "id", "De la comunidad",
+            listOf<SliderItem.RoutineItem>(
+                SliderItem.RoutineItem("id19", "Mi 6 pack", "url"),
+                SliderItem.RoutineItem("id20", "Burning abs", "url"),
+                SliderItem.RoutineItem("id21", "Mi 6 pack", "url"),
+                SliderItem.RoutineItem("id22", "Burning abs", "url"),
+                SliderItem.RoutineItem("id23", "Mi 6 pack", "url"),
+                SliderItem.RoutineItem("id24", "Burning abs", "url")
+            ),
+        ))
+
+        adapter.notifyDataSetChanged()
     }
 }

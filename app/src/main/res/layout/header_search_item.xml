@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <SearchView
+        android:id="@+id/serachView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Buscar" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todo el cuerpo" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cualquier equipamiento" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todos los niveles" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -5,8 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class RoutineDetails : Fragment(R.layout.fragment_routine_details) {
+@AndroidEntryPoint
+class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details) {
     private var _binding : FragmentRoutineDetailsBinding? = null
     private val binding get() = _binding!!
 

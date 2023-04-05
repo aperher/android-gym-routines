@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/routineDetails"
-        android:name="com.example.gymroutines.ui.Home.routineDetails.RoutineDetails"
+        android:name="com.example.gymroutines.ui.Home.routineDetails.RoutineDetailsFragment"
         android:label="RoutineDetails"
         tools:layout="@layout/fragment_routine_details"/>
 </navigation>

@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gymroutines.utils.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RoutinesViewModel : ViewModel() {
+@HiltViewModel
+class RoutinesViewModel @Inject constructor() : ViewModel() {
     private var _goToRoutineDetails = MutableLiveData<Event<String>>()
     val goToRoutineDetails: LiveData<Event<String>> get() = _goToRoutineDetails
 
