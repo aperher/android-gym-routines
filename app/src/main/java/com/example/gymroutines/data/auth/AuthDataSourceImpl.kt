@@ -3,8 +3,6 @@ package com.example.gymroutines.data.auth
 import com.example.gymroutines.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -16,32 +14,15 @@ class AuthDataSourceImpl @Inject constructor(
         const val USER_COLLECTION = "users"
     }
 
-    override suspend fun createUser(user: User): Result<Unit> = runCatching {
+    override suspend fun createUser(user: User): Boolean = runCatching {
         val account = auth.createUserWithEmailAndPassword(user.email, user.password).await()
-        if (account != null) {
+        if (account != null)
             db.collection(USER_COLLECTION).document(user.email).set(user).await()
-            true
-        } else
-            false
-    }
+    }.isSuccess
 
-    override suspend fun login(email: String, password: String): Result<Boolean> = runCatching {
-        val account = auth.signInWithEmailAndPassword(email, password).await()
-        account != null && account.user != null
-        /*
-        // Login a través de Firebase
-        val user = db.collection(USER_COLLECTION).document(email).get().await().toObject<User>()
-        if (user == null || user.password != password)
-            throw FirebaseFirestoreException(
-                "Incorrect mail or password",
-                FirebaseFirestoreException.Code.PERMISSION_DENIED
-            )
-         */
-    }
+    override suspend fun login(email: String, password: String): Boolean = runCatching {
+        auth.signInWithEmailAndPassword(email, password).await()
+    }.isSuccess
 
-    override suspend fun logout() = auth.signOut()
-
-    private suspend fun sendVerificationEmail() {
-        auth.currentUser?.sendEmailVerification()?.await()
-    }
+    override fun logout() = auth.signOut()
 }

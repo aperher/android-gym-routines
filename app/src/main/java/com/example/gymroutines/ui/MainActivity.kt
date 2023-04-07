@@ -4,16 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.ActivityMainBinding
-import com.example.gymroutines.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -24,16 +22,14 @@ class MainActivity : AppCompatActivity() {
 
         navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
 
-        viewModel.goToSignIn.observe(this@MainActivity) { it ->
+        viewModel.goToHome.observe(this@MainActivity) { it ->
             it.getContentIfNotHandled()?.let {
-                if (it) {
-                    goToSignIn()
-                }
+                if (it) goToHome()
             }
         }
     }
 
-    private fun goToSignIn() {
-        navController.navigate(R.id.action_homeFragment_to_loginFragment)
+    private fun goToHome() {
+        navController.navigate(R.id.action_loginFragment_to_homeFragment)
     }
 }

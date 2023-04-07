@@ -1,10 +1,8 @@
 package com.example.gymroutines.ui.Login
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.*
 import com.example.gymroutines.data.auth.AuthRepository
-import com.example.gymroutines.model.User
 import com.example.gymroutines.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,10 +33,10 @@ class LoginViewModel @Inject constructor(private val authRepository: AuthReposit
 
     fun login() {
         viewModelScope.launch {
-            authRepository.login(_email.value!!, _password.value!!).fold(
-                onSuccess = { _goToHome.value = Event(true) },
-                onFailure = { TODO("Not yet implemented") }
-            )
+            val logged : Boolean = authRepository.login(_email.value!!, _password.value!!)
+            if (logged) {
+                _goToHome.value = Event(true)
+            }
             setPassword("")
         }
     }

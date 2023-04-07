@@ -1,43 +1,49 @@
-package com.example.gymroutines.ui.Home.routines
+package com.example.gymroutines.ui.Home.routinesCatalog
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.gymroutines.databinding.HeaderSearchItemBinding
 import com.example.gymroutines.databinding.RoutineSliderItemBinding
-import com.example.gymroutines.model.SliderItem
+import com.example.gymroutines.model.Catalog
 
 class RoutinesCatalogAdapter(
-    private val list: MutableList<SliderItem>,
     private val onRoutineClicked: (idRoutine: String) -> Unit
-) : Adapter<ViewHolder>() {
+) : ListAdapter<Catalog, ViewHolder>(CatalogDiff) {
     companion object {
         const val VIEW_TYPE_HEADER = 0
         const val VIEW_TYPE_ROUTINE = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        when (viewType) {
+    object CatalogDiff : DiffUtil.ItemCallback<Catalog>() {
+        override fun areItemsTheSame(oldItem: Catalog, newItem: Catalog): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Catalog, newItem: Catalog): Boolean {
+            Log.d("RoutinesCatalogAdapter", "areContentsTheSame: ${oldItem == newItem}")
+            return oldItem == newItem
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
             VIEW_TYPE_HEADER -> {
                 val binding: HeaderSearchItemBinding =
-                    HeaderSearchItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                    HeaderSearchItemBinding.inflate(inflater, parent, false)
                 HeaderViewHolder(binding)
             }
             else -> {
                 val binding: RoutineSliderItemBinding =
-                    RoutineSliderItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                    RoutineSliderItemBinding.inflate(inflater, parent, false)
                 SliderItemViewHolder(binding)
             }
         }
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (getItemViewType(position)) {
@@ -46,8 +52,8 @@ class RoutinesCatalogAdapter(
                 headerViewHolder.bind()
             }
             VIEW_TYPE_ROUTINE -> {
-                val routineViewHolder = holder as SliderItemViewHolder
-                routineViewHolder.bind(list[position - 1])
+                val sliderViewHolder = holder as SliderItemViewHolder
+                sliderViewHolder.bind(getItem(position))
             }
         }
     }
@@ -59,15 +65,13 @@ class RoutinesCatalogAdapter(
         }
     }
 
-    override fun getItemCount(): Int = list.size + 1 // +1 por el header
-
     inner class SliderItemViewHolder(private val binding: RoutineSliderItemBinding) :
         ViewHolder(binding.root) {
-        fun bind(slider: SliderItem) {
+        fun bind(slider: Catalog) {
             binding.tvSliderTitle.text = slider.title
             val adapter = RoutinesSliderAdapter(onRoutineClicked)
             binding.recycleViewRoutines.adapter = adapter
-            adapter.submitList(slider.routinesList)
+            adapter.submitList(slider.routinesPreview)
         }
     }
 
@@ -76,5 +80,14 @@ class RoutinesCatalogAdapter(
         fun bind() {
             // Se le podría pasar una lista de los filtros y meterlos en un recycler view
         }
+    }
+
+    override fun submitList(list: MutableList<Catalog>?) {
+        val listWithHeader = mutableListOf<Catalog>()
+        listWithHeader.apply{
+            add(Catalog("","", listOf()))
+            list?.let { addAll(it) }
+        }
+        super.submitList(listWithHeader)
     }
 }

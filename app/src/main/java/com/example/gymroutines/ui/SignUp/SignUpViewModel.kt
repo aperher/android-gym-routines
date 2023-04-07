@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.SignUp
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.*
 import com.example.gymroutines.data.auth.AuthRepository
@@ -51,11 +50,11 @@ class SignUpViewModel @Inject constructor(private val authRepository: AuthReposi
 
     fun signUp() {
         viewModelScope.launch {
-            authRepository.register(User(_username.value!!, _email.value!!, _password.value!!))
-                .fold(
-                    onSuccess = { _goToHome.value = Event(true) },
-                    onFailure = { TODO("Not yet implemented") }
-                )
+            val registered: Boolean =
+                authRepository.register(User(_username.value!!, _email.value!!, _password.value!!))
+            if (registered) {
+                _goToHome.value = Event(true)
+            }
             setPassword("")
             setConfirmPassword("")
         }

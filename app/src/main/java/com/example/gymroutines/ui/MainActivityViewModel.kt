@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gymroutines.utils.Event
@@ -10,14 +9,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewModel() {
-    private var _goToSignIn = MutableLiveData<Event<Boolean>>()
-    val goToSignIn: MutableLiveData<Event<Boolean>> get() = _goToSignIn
+    private var _goToHome = MutableLiveData<Event<Boolean>>()
+    val goToHome: MutableLiveData<Event<Boolean>> get() = _goToHome
 
     init {
         checkIfUserIsLoggedIn()
     }
 
     private fun checkIfUserIsLoggedIn() {
-        if (auth.currentUser == null) _goToSignIn.value = Event(true)
+        if (auth.currentUser != null) _goToHome.value = Event(true)
     }
 }

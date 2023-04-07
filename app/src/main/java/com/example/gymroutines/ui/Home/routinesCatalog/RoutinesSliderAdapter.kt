@@ -1,4 +1,4 @@
-package com.example.gymroutines.ui.Home.routines
+package com.example.gymroutines.ui.Home.routinesCatalog
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.RoutineItemBinding
-import com.example.gymroutines.model.SliderItem
+import com.example.gymroutines.model.RoutinePreview
 
-class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Unit) : ListAdapter<SliderItem.RoutineItem, RoutinesSliderAdapter.ViewHolder>(RoutineDiff) {
-    object RoutineDiff : DiffUtil.ItemCallback<SliderItem.RoutineItem>() {
-        override fun areItemsTheSame(oldItem: SliderItem.RoutineItem, newItem: SliderItem.RoutineItem): Boolean {
+class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Unit) :
+    ListAdapter<RoutinePreview, RoutinesSliderAdapter.ViewHolder>(RoutineDiff) {
+    object RoutineDiff : DiffUtil.ItemCallback<RoutinePreview>() {
+        override fun areItemsTheSame(oldItem: RoutinePreview, newItem: RoutinePreview): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SliderItem.RoutineItem, newItem: SliderItem.RoutineItem): Boolean {
+        override fun areContentsTheSame(oldItem: RoutinePreview, newItem: RoutinePreview): Boolean {
             return oldItem == newItem
         }
     }
@@ -27,11 +28,12 @@ class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Un
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val routine = getItem(position)
-                    onItemClicked(routine.id)
+                    onItemClicked(routine.id!!)
                 }
             }
         }
-        fun bind(routine: SliderItem.RoutineItem) {
+
+        fun bind(routine: RoutinePreview) {
             binding.title.text = routine.title
             //binding.image.setImageResource(routine.image)
         }

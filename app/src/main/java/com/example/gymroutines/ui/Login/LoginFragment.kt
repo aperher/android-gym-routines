@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentLoginBinding
+import com.example.gymroutines.utils.dismissKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,6 +47,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.setPassword(text.toString())
         })
         binding.btnSignIn.setOnClickListener {
+            it.dismissKeyboard()
             viewModel.login()
         }
         binding.btnSignUp.setOnClickListener {
