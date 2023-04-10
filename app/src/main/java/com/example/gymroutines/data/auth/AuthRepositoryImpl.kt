@@ -11,7 +11,5 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun login(email: String, password: String): Boolean =
         dataSource.login(email, password)
 
-    override fun logout() {
-        dataSource.logout()
-    }
+    override fun logout() = dataSource.logout()
 }

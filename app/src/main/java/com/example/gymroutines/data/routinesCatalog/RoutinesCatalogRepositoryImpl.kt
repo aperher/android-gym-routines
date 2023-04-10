@@ -11,9 +11,7 @@ class RoutinesCatalogRepositoryImpl @Inject constructor(private val dataSource: 
 
     override fun getRoutinesCatalog(): Flow<List<Catalog>> {
         return dataSource.getRoutinesCatalog().map { catalogList ->
-            catalogList.sortedBy {
-                it.priorityOrder
-            }.map { catalogDto ->
+            catalogList.map { catalogDto ->
                 catalogDto.toDomain()
             }
         }

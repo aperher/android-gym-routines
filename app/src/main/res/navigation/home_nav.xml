@@ -9,7 +9,7 @@
         android:id="@+id/routinesFragment"
         android:name="com.example.gymroutines.ui.Home.routinesCatalog.RoutinesFragment"
         android:label="RoutinesFragment"
-        tools:layout="@layout/fragment_routines" >
+        tools:layout="@layout/fragment_catalog_routines" >
         <action
             android:id="@+id/action_routinesFragment_to_routineDetails"
             app:destination="@id/routineDetails"

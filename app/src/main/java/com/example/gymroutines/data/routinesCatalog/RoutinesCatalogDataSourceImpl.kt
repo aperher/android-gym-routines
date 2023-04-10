@@ -17,6 +17,7 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
 
     companion object {
         const val COLLECTION_CATALOGS = "routinesCatalogs"
+        const val FIELD_PRIORITY_ORDER = "priorityOrder"
         const val FIELD_USER_ID = "userId"
     }
 
@@ -24,17 +25,15 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
         val userId = firebaseAuth.currentUser?.email
         val query = firestore.collection(COLLECTION_CATALOGS)
             .whereIn(FIELD_USER_ID, listOf(userId, "all"))
+            .orderBy(FIELD_PRIORITY_ORDER)
 
         val registration = query.addSnapshotListener { snapshot, exception ->
-            if (exception != null) {
-                close(exception)
+            if (exception != null || snapshot == null) {
                 return@addSnapshotListener
             }
 
-            val catalogs = snapshot?.toObjects(CatalogDto::class.java)
-
-            if (catalogs != null)
-                trySend(catalogs)
+            val catalogs = snapshot.toObjects(CatalogDto::class.java)
+            trySend(catalogs)
         }
 
         awaitClose { registration.remove() }

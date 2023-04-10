@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.routinesCatalog
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +23,6 @@ class RoutinesCatalogAdapter(
         }
 
         override fun areContentsTheSame(oldItem: Catalog, newItem: Catalog): Boolean {
-            Log.d("RoutinesCatalogAdapter", "areContentsTheSame: ${oldItem == newItem}")
             return oldItem == newItem
         }
     }
@@ -69,6 +67,7 @@ class RoutinesCatalogAdapter(
         ViewHolder(binding.root) {
         fun bind(slider: Catalog) {
             binding.tvSliderTitle.text = slider.title
+
             val adapter = RoutinesSliderAdapter(onRoutineClicked)
             binding.recycleViewRoutines.adapter = adapter
             adapter.submitList(slider.routinesPreview)
@@ -83,11 +82,7 @@ class RoutinesCatalogAdapter(
     }
 
     override fun submitList(list: MutableList<Catalog>?) {
-        val listWithHeader = mutableListOf<Catalog>()
-        listWithHeader.apply{
-            add(Catalog("","", listOf()))
-            list?.let { addAll(it) }
-        }
-        super.submitList(listWithHeader)
+        list?.add(0, Catalog("", "", listOf())) // Header
+        super.submitList(list)
     }
 }
