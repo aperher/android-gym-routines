@@ -28,4 +28,9 @@
         android:name="com.example.gymroutines.ui.Home.routineDetails.RoutineDetailsFragment"
         android:label="RoutineDetails"
         tools:layout="@layout/fragment_routine_details"/>
+    <fragment
+        android:id="@+id/routineCreateFragment"
+        android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineCreateFragment"
+        android:label="RoutineCreateFragment"
+        tools:layout="@layout/fragment_routine_create" />
 </navigation>

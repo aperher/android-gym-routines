@@ -5,8 +5,11 @@
         android:title=""
         android:icon="@drawable/home" />
     <item
+        android:id="@+id/routineCreateFragment"
+        android:title=""
+        android:icon="@drawable/add" />
+    <item
         android:id="@+id/profileFragment"
         android:title=""
         android:icon="@drawable/profile" />
-
 </menu>
