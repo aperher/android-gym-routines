@@ -8,5 +8,5 @@ data class Routine(var userId: String, val isPublic: Boolean, val name: String, 
         val primaryMuscles: String,
         val secondaryMuscles: List<String>,
         val series: List<Int>
-    );
+    )
 }
