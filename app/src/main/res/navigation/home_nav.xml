@@ -33,4 +33,9 @@
         tools:layout="@layout/fragment_chat"
         android:name="com.example.gymroutines.ui.Home.chat.ChatFragment"
         android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/routineCreateFragment"
+        android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineCreateFragment"
+        android:label="RoutineCreateFragment"
+        tools:layout="@layout/fragment_routine_create" />
 </navigation>

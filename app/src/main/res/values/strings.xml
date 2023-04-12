@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">GymRoutines</string>
     <string name="example">Example</string>
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripción</string>
+    <string name="ver_todo">Ver todo</string>
+    <string name="crea_tu_rutina">Crea tu rutina</string>
+    <string name="anyade_un_ejercicio">Añade un ejercicio</string>
 </resources>
