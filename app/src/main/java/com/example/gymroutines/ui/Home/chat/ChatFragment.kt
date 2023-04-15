@@ -10,7 +10,9 @@ import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentChatBinding
 import com.example.gymroutines.ui.Home.routinesCatalog.RoutinesCatalogAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChatFragment: Fragment(R.layout.fragment_chat) {
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
