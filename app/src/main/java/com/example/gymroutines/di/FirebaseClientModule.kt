@@ -1,4 +1,4 @@
-package com.example.gymroutines.data.di
+package com.example.gymroutines.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

@@ -1,4 +1,4 @@
-package com.example.gymroutines.data.di
+package com.example.gymroutines.di
 
 import com.example.gymroutines.data.auth.AuthDataSource
 import com.example.gymroutines.data.auth.AuthDataSourceImpl
