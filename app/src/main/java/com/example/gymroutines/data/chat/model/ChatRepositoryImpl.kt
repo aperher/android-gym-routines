@@ -1,0 +1,9 @@
+
+import com.example.gymroutines.model.Messages
+import javax.inject.Inject
+
+class ChatRepositoryImpl @Inject constructor(val datasource: ChatDataSource): ChatRepository {
+    override suspend fun getMessages(): Result<Messages> {
+        return datasource.getMessages();
+    }
+}

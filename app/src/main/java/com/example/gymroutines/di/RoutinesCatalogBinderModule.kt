@@ -1,4 +1,4 @@
-package com.example.gymroutines.data.di
+package com.example.gymroutines.di
 
 import com.example.gymroutines.data.routinesCatalog.RoutinesCatalogDataSource
 import com.example.gymroutines.data.routinesCatalog.RoutinesCatalogDataSourceImpl
