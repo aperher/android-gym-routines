@@ -8,22 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.ChatItemBinding
 import com.example.gymroutines.model.Messages
 
-class ChatAdapter(private val itemclicked: ItemClicked): ListAdapter<Messages, ChatAdapter.ViewHolder>(MessageDiff) {
-    class ViewHolder (private val binding: ChatItemBinding, itemclicked: ItemClicked): RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.root.setOnClickListener {
-                itemclicked.onClick(binding.root.toString())
-            }
-        }
-
-        fun bind(messages: Messages) {
-
+class ChatAdapter(): ListAdapter<Messages, ChatAdapter.ViewHolder>(MessageDiff) {
+    class ViewHolder (private val binding: ChatItemBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(message: Messages) {
+            binding.tvText.text = message.text
+            binding.tvUserName.text = message.userName
         }
     }
     object
     MessageDiff : DiffUtil.ItemCallback<Messages>() {
         override fun areItemsTheSame(oldItem: Messages, newItem: Messages): Boolean {
-            return oldItem== newItem;
+            return oldItem.id == newItem.id;
         }
 
         override fun areContentsTheSame(oldItem: Messages, newItem: Messages): Boolean {
@@ -34,12 +29,11 @@ class ChatAdapter(private val itemclicked: ItemClicked): ListAdapter<Messages, C
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ChatItemBinding.inflate(
             LayoutInflater.from(parent.context), parent,
-            false), itemclicked);
+            false));
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position));
     }
-    interface ItemClicked { fun onClick(author: String) }
 
 }
