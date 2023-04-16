@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatrecyclerView"
+        android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/textMessage"
+            android:id="@+id/EtextMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

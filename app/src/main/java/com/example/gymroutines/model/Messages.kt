@@ -1,5 +1,5 @@
 package com.example.gymroutines.model
 
 
-    data class Messages(val userName: String, val text: String, var id: Int)
+    data class Messages(var userName: String, var text: String, var id: String)
 

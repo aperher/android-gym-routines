@@ -29,7 +29,7 @@
         android:label="RoutineDetails"
         tools:layout="@layout/fragment_routine_details"/>
     <fragment
-        android:id="@+id/chatFragment3"
+        android:id="@+id/chatFragment"
         tools:layout="@layout/fragment_chat"
         android:name="com.example.gymroutines.ui.Home.chat.ChatFragment"
         android:label="ChatFragment" />

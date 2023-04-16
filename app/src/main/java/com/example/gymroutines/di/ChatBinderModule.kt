@@ -1,9 +1,9 @@
 package com.example.gymroutines.di
 
-import com.example.gymroutines.data.chat.model.ChatDataSource
-import com.example.gymroutines.data.chat.model.ChatDataSourceImpl
-import com.example.gymroutines.data.chat.model.ChatRepository
-import com.example.gymroutines.data.chat.model.ChatRepositoryImpl
+import com.example.gymroutines.data.chat.ChatDataSource
+import com.example.gymroutines.data.chat.ChatDataSourceImpl
+import com.example.gymroutines.data.chat.ChatRepository
+import com.example.gymroutines.data.chat.ChatRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
