@@ -1,4 +1,4 @@
-package com.example.gymroutines.data.Exercice
+package com.example.gymroutines.data.exercise
 
 
 import com.example.gymroutines.model.Exercise
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ExerciseRepositoryImpl @Inject constructor(val datasource: ExerciseDataSource): ExerciseRepository {
-    override fun getExercises (muscle: String, equipment: String): Flow<List<Exercise>> {
-       return  datasource.getExercises(muscle, equipment)
+    override suspend fun getExercises (muscle: String?, equipment: String?): Result<List<Exercise>> {
+       return datasource.getExercises(muscle, equipment)
     }
 }

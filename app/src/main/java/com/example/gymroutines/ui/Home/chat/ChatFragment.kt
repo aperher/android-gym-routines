@@ -49,14 +49,12 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     }
 
     private fun initObservers() {
-
         viewModel.listMessages.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
         viewModel.isTextEmpty.observe(viewLifecycleOwner) {
             binding.btnSend.isEnabled = !it
-
         }
     }
 

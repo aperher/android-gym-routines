@@ -37,5 +37,14 @@
         android:id="@+id/routineCreateFragment"
         android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineCreateFragment"
         android:label="RoutineCreateFragment"
-        tools:layout="@layout/fragment_routine_create" />
+        tools:layout="@layout/fragment_routine_create" >
+        <action
+            android:id="@+id/action_routineCreateFragment_to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exercisesFragment"
+        android:name="com.example.gymroutines.ui.Home.exercises.ExercisesFragment"
+        android:label="ExercisesFragment"
+        tools:layout="@layout/fragment_catalog_exercises" />
 </navigation>

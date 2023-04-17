@@ -5,7 +5,7 @@ import com.example.gymroutines.model.User
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 
-class ProfilerepositoryImpl @Inject constructor(val datasource: ProfileDataSource) : ProfileRepository {
+class ProfileRepositoryImpl @Inject constructor(val datasource: ProfileDataSource) : ProfileRepository {
     override suspend fun getUser() : Result<User> {
         return datasource.getUser()
     }
