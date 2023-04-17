@@ -37,6 +37,14 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
     private fun initUI() {
         initAdapter()
         initObservers()
+        initListeners()
+    }
+
+    private fun initAdapter() {
+        adapter = RoutinesCatalogAdapter { routineId ->
+            viewModel.onRoutineClicked(routineId)
+        }
+        binding.recyclerView.adapter = adapter
     }
 
     private fun initObservers() {
@@ -56,16 +64,15 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         }
     }
 
+    private fun initListeners() {
+        binding.chip1.setOnClickListener {
+            val modalBottomSheet = ModalBottomSheet()
+            modalBottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
+        }
+    }
+
     private fun goToRoutineDetails(routineId: String) {
         val bundle = bundleOf("id" to routineId)
         navControllerHome.navigate(R.id.action_routinesFragment_to_routineDetails, bundle)
-    }
-
-    private fun initAdapter() {
-        adapter = RoutinesCatalogAdapter { routineId ->
-            viewModel.onRoutineClicked(routineId)
-        }
-
-        binding.recyclerView.adapter = adapter
     }
 }
