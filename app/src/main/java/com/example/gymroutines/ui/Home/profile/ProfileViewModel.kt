@@ -16,11 +16,11 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
     private var _currentuser = MutableLiveData<User>()
     val user: LiveData<User> get() = _currentuser
 
-    init{
+    init {
         getUser()
     }
 
-    fun getUser(){
+    fun getUser() {
         viewModelScope.launch {
             repository.getUser().fold(onSuccess = {
                 _currentuser.value = it

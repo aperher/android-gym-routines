@@ -6,22 +6,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.HeaderCreateItemBinding
-import com.example.gymroutines.databinding.RoutineExercisesBinding
+import com.example.gymroutines.databinding.RoutineExerciseItemBinding
 import com.example.gymroutines.model.RoutineExercises
 
-class RoutineCreateAdapter(
-    private val onRoutineClicked: (idRoutine: String) -> Unit
-) : ListAdapter<RoutineExercises, RecyclerView.ViewHolder>(ExerciseDiff) {
+class RoutineCreateAdapter : ListAdapter<RoutineExercises, RecyclerView.ViewHolder>(ExerciseDiff) {
     companion object {
         const val VIEW_TYPE_HEADER = 0
         const val VIEW_TYPE_EXERCISES = 1
     }
 
     object ExerciseDiff : DiffUtil.ItemCallback<RoutineExercises>() {
-        override fun areItemsTheSame(oldItem: RoutineExercises, newItem: RoutineExercises): Boolean {
+        override fun areItemsTheSame(
+            oldItem: RoutineExercises,
+            newItem: RoutineExercises
+        ): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: RoutineExercises, newItem: RoutineExercises): Boolean {
+
+        override fun areContentsTheSame(
+            oldItem: RoutineExercises,
+            newItem: RoutineExercises
+        ): Boolean {
             return oldItem == newItem
         }
     }
@@ -35,8 +40,8 @@ class RoutineCreateAdapter(
                 HeaderViewHolder(binding)
             }
             else -> {
-                val binding: RoutineExercisesBinding =
-                    RoutineExercisesBinding.inflate(inflater, parent, false)
+                val binding: RoutineExerciseItemBinding =
+                    RoutineExerciseItemBinding.inflate(inflater, parent, false)
                 ExercisesViewHolder(binding)
             }
         }
@@ -62,12 +67,12 @@ class RoutineCreateAdapter(
         }
     }
 
-    inner class ExercisesViewHolder(private val binding: RoutineExercisesBinding) :
+    inner class ExercisesViewHolder(private val binding: RoutineExerciseItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(routineExercises: RoutineExercises) {
-            val adapter = RoutineExercisesAdapter(onRoutineClicked)
-            binding.rvExercises.adapter = adapter
-            adapter.submitList(routineExercises.exercisesPreview)
+            //val adapter = RoutineExercisesAdapter(routineExercises)
+            //binding.tvExerciseName.text = routineExercises.
+            //adapter.submitList(routineExercises.exercisesPreview)
         }
     }
 

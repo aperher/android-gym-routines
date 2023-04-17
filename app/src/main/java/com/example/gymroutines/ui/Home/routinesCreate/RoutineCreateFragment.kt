@@ -6,9 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineCreateBinding
-import com.example.gymroutines.ui.Home.routinesCatalog.RoutinesViewModel
+import com.example.gymroutines.ui.Home.routinesCatalog.RoutinesCatalogAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +18,7 @@ class RoutineCreateFragment: Fragment(R.layout.fragment_routine_create) {
     private val binding get() = _binding!!
     private var _navControllerHome: NavController? = null
     private val navControllerHome get() = _navControllerHome!!
-    private val viewModel: RoutinesViewModel by viewModels() // CREAR VIEWMODEL
+    private val viewModel: RoutineCreateViewModel by viewModels() // POR HACER
     private lateinit var adapter: RoutineCreateAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,18 +35,10 @@ class RoutineCreateFragment: Fragment(R.layout.fragment_routine_create) {
     }
 
     private fun initUI() {
-        initAdapter()
-        initObservers()
-    }
-
-    private fun initObservers() {
-        // observar botón 'Añade un ejercicio' para ir a la pantalla de ejercicios
-    }
-
-    private fun initAdapter() {
-        adapter = RoutineCreateAdapter { routineId ->
-            viewModel.onRoutineClicked(routineId)
-        }
+        adapter = RoutineCreateAdapter()
         binding.rvCreateRoutine.adapter = adapter
+        binding.btnAddExercise.setOnClickListener {
+            navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
+        }
     }
 }

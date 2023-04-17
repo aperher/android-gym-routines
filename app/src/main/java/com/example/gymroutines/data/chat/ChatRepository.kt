@@ -6,7 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChatRepository {
     fun getMessages(): Flow<List<Messages>>
-
-
     fun createMessage(text: String): Boolean
 }

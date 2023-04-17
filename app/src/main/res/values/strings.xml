@@ -6,4 +6,8 @@
     <string name="ver_todo">Ver todo</string>
     <string name="crea_tu_rutina">Crea tu rutina</string>
     <string name="anyade_un_ejercicio">Añade un ejercicio</string>
+    <string name="anyadir_ejercicios">Añadir ejercicios</string>
+    <string name="escribe_un_mensaje">Escribe un mensaje</string>
+    <string name="enviar">Enviar</string>
+    <string name="chat">Chat</string>
 </resources>

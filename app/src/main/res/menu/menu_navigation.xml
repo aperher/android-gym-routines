@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#212529">
     <item
         android:id="@+id/routinesFragment"
-        android:title=""
-        android:icon="@drawable/home" />
+        android:icon="@drawable/home"
+        android:title="" />
     <item
         android:id="@+id/routineCreateFragment"
-        android:title=""
-        android:icon="@drawable/add" />
-    <item
-        android:id="@+id/profileFragment"
-        android:title=""
-        android:icon="@drawable/profile" />
+        android:icon="@drawable/add"
+        android:title="" />
     <item
         android:id="@+id/chatFragment"
-        android:title=""
-        android:icon="@drawable/baseline_chat_24" />
+        android:icon="@drawable/baseline_chat_24"
+        android:title="" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile"
+        android:title="" />
 </menu>
