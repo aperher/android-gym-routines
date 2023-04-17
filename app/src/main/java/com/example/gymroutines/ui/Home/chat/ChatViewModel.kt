@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.chat
 
-
 import androidx.lifecycle.*
 import com.example.gymroutines.data.chat.ChatRepository
 import com.example.gymroutines.model.Messages
@@ -16,6 +15,7 @@ class ChatViewModel @Inject constructor(private val repository: ChatRepository) 
     private val _isTextEmpty = MutableLiveData(false);
     val isTextEmpty: LiveData<Boolean>
     get() = _isTextEmpty
+
     fun setTextMessage(text: String) {
         _textMessage.value = text
         _isTextEmpty.value = text.isNullOrEmpty()
