@@ -8,8 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutinesViewModel @Inject constructor(private val repository: RoutinesCatalogRepository) :
-    ViewModel() {
+class RoutinesViewModel @Inject constructor(private val repository: RoutinesCatalogRepository): ViewModel() {
     private var _goToRoutineDetails = MutableLiveData<Event<String>>()
     val goToRoutineDetails: LiveData<Event<String>> get() = _goToRoutineDetails
 

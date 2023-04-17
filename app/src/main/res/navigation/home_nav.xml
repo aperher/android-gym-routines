@@ -22,7 +22,11 @@
         android:id="@+id/profileFragment"
         android:name="com.example.gymroutines.ui.Home.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/routineDetails"
         android:name="com.example.gymroutines.ui.Home.routineDetails.RoutineDetailsFragment"
@@ -38,4 +42,8 @@
         android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineCreateFragment"
         android:label="RoutineCreateFragment"
         tools:layout="@layout/fragment_routine_create" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.gymroutines.ui.Home.profile.editProfile.EditProfileFragment"
+        android:label="EditProfileFragment" />
 </navigation>
