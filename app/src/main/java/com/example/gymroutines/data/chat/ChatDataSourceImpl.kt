@@ -37,15 +37,22 @@ class ChatDataSourceImpl @Inject constructor(
     override fun createMessage(text: String): Boolean = runCatching {
         Platform.logger.log(Level.INFO, "dentro del datasoruce")
             val userId = auth.currentUser?.email
-            val id = randomString()
+            val id = randomString(20)
             val message = Messages(userId!!, text, id)
+        Platform.logger.log(Level.INFO, message.id.toString())
         db.collection("messages").document("messages").update("messages", FieldValue.arrayUnion(message))
     }.isSuccess
 
-    private fun randomString(): String {
+    private fun randomString(longitud: Int): String {
+        val caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
         val random = Random()
-        val randomNum = random.nextInt(1000000000000000.toInt())
-        return  String.format("%015d", randomNum)
+        val sb = StringBuilder(longitud)
 
+        for (i in 0 until longitud) {
+            val indice = random.nextInt(caracteresPermitidos.length)
+            sb.append(caracteresPermitidos[indice])
+        }
+
+        return sb.toString()
     }
 }

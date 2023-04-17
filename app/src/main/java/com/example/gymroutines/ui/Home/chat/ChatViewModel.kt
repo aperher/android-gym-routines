@@ -4,6 +4,8 @@ import androidx.lifecycle.*
 import com.example.gymroutines.data.chat.ChatRepository
 import com.example.gymroutines.model.Messages
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.grpc.okhttp.internal.Platform
+import java.util.logging.Level
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +24,8 @@ class ChatViewModel @Inject constructor(private val repository: ChatRepository) 
     }
 
     fun createMessage() {
-        repository.createMessage(_textMessage.value!!)
+        val cacahuetes = repository.createMessage(_textMessage.value!!)
+        Platform.logger.log(Level.INFO, cacahuetes.toString())
     }
 }
 
