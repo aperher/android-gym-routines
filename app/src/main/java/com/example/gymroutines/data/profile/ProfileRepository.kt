@@ -4,4 +4,6 @@ import com.example.gymroutines.model.User
 
 interface ProfileRepository {
     suspend fun getUser(): Result<User>
+
+    suspend fun getUserName(): String
 }
