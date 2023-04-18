@@ -11,4 +11,5 @@
     <string name="enviar">Enviar</string>
     <string name="chat">Chat</string>
     <string name="profile_pic">Profile pic</string>
+    <string name="guardar">Guardar</string>
 </resources>
