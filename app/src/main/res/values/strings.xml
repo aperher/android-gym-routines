@@ -10,4 +10,5 @@
     <string name="escribe_un_mensaje">Escribe un mensaje</string>
     <string name="enviar">Enviar</string>
     <string name="chat">Chat</string>
+    <string name="profile_pic">Profile pic</string>
 </resources>
