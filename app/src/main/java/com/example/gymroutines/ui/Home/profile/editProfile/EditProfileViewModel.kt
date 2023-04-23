@@ -14,18 +14,8 @@ import javax.inject.Inject
 class EditProfileViewModel @Inject constructor(private val repository: ProfileRepository): ViewModel() {
     private var _currentuser = MutableLiveData<User>()
     val user: LiveData<User> get() = _currentuser
-    private var _username = MutableLiveData<String>("Carlos")
+    private var _username = MutableLiveData<String>()
     val username: LiveData<String> get() = _username
-    private var _useremail = MutableLiveData<String>("email")
+    private var _useremail = MutableLiveData<String>()
     val useremail: LiveData<String> get() = _useremail
-    init {
-        /*
-        viewModelScope.launch {
-            repository.getUser().fold(onSuccess = {
-                _currentuser.value = it
-            }, onFailure = {
-                TODO()
-            })
-        }*/
-    }
 }

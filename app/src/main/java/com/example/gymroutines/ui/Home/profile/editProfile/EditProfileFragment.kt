@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -21,9 +22,10 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
     private val binding get() = _binding!!
     private var _navControllerHome: NavController? = null
     private val navControllerHome get() = _navControllerHome
-    private val viewModel: EditProfileViewModel by viewModels()
+    private val viewModel: ProfileViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        _binding = FragmentEditProfileBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
         _navControllerHome = view.findNavController()
         //set listener for editProfilePhotoButton
@@ -34,7 +36,7 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
         //Set listener for savebutton
         val saveButton = view.findViewById<Button>(R.id.saveButton)
         saveButton.setOnClickListener{
-            Toast.makeText(context,"Save", Toast.LENGTH_SHORT).show()
+            saveChangedData()
         }
         //Set listener for cancelButton
         val cancelButton = view.findViewById<Button>(R.id.cancelButton)
@@ -44,17 +46,18 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
         }
 
         //Set text on textfields
-        val usernameText = view.findViewById<TextInputEditText>(R.id.profile_name_text)
-        //usernameText.setText(viewModel.user.value?.username)
-        val useremailtext = view.findViewById<TextInputEditText>(R.id.email_text)
-        //useremailtext.setText(viewModel.user.value?.email)
         initUI()
     }
 
     private fun initUI() {
-        initObservers()
+        binding.profileNameText.setText(viewModel.user.value?.username)
+        binding.actualPasswordText.setText(null)
+        binding.newPasswordText.setText(null)
+        binding.repeatPasswordText.setText(null)
     }
 
-    private fun initObservers(){
+    private fun saveChangedData(){
+        Toast.makeText(context,binding.profileNameText.text, Toast.LENGTH_SHORT).show()
+        viewModel.updateUserData(binding.profileNameText.text.toString(), binding.actualPasswordText.text.toString(),binding.newPasswordText.text.toString(),binding.repeatPasswordText.text.toString())
     }
 }

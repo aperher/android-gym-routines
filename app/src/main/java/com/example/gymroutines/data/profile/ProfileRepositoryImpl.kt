@@ -25,4 +25,16 @@ class ProfileRepositoryImpl @Inject constructor(val datasource: ProfileDataSourc
         }
         return Username;
     }
+
+    override suspend fun updateAllUserData(userName: String, password: String) {
+        //return datasource.updateAllUserData(userName,password)
+    }
+
+    override suspend fun updateUserName(userName: String): Result<Boolean> {
+        return datasource.updateUserName(userName)
+    }
+
+    override suspend fun updateUserPassword(password: String): Result<Boolean> {
+        return datasource.updateUserPassword(password)
+    }
 }

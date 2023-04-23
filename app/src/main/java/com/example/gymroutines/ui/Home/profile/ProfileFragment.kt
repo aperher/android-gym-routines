@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -21,7 +22,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val navControllerHome get() = _navControllerHome!!
     private var _navControllerMain: NavController? = null
     private val navControllerMain get() = _navControllerMain!!
-    private val viewModel: ProfileViewModel by viewModels()
+    private val viewModel: ProfileViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
