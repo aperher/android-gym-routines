@@ -4,47 +4,54 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.RoutineExerciseItemBinding
 import com.example.gymroutines.model.RoutineExercisePreview
 
-class RoutineExercisesAdapter (private val onItemClicked: (idExercise: String) -> Unit) :
-    ListAdapter<RoutineExercisePreview, RoutineExercisesAdapter.ViewHolder>(RoutineExerciseDiff) {
+class RoutineExercisesAdapter(private val onExerciseClicked: (idExercise: String) -> Unit) :
+    ListAdapter<RoutineExercisePreview, RoutineExercisesAdapter.RoutineExerciseItemViewHolder>(RoutineExerciseDiff) {
     object RoutineExerciseDiff : DiffUtil.ItemCallback<RoutineExercisePreview>() {
-        override fun areItemsTheSame(oldItem: RoutineExercisePreview, newItem: RoutineExercisePreview): Boolean {
+        override fun areItemsTheSame(
+            oldItem: RoutineExercisePreview,
+            newItem: RoutineExercisePreview
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: RoutineExercisePreview, newItem: RoutineExercisePreview): Boolean {
+        override fun areContentsTheSame(
+            oldItem: RoutineExercisePreview,
+            newItem: RoutineExercisePreview
+        ): Boolean {
             return oldItem == newItem
         }
     }
 
-    inner class ViewHolder(private val binding: RoutineExerciseItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class RoutineExerciseItemViewHolder(private val binding: RoutineExerciseItemBinding) :
+        ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val exercise = getItem(position)
-                    onItemClicked(exercise.id!!)
+                    onExerciseClicked(exercise.id!!)
                 }
             }
         }
 
         fun bind(exercise: RoutineExercisePreview) {
             binding.tvExerciseName.text = exercise.name
-            //binding.tvExerciseSeries.text = exercise.series (POR HACER)
+            binding.tvExerciseSeries.text = exercise.series.toString()
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoutineExerciseItemViewHolder {
         val binding: RoutineExerciseItemBinding =
             RoutineExerciseItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return RoutineExerciseItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RoutineExerciseItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }

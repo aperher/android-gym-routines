@@ -15,6 +15,9 @@ class RoutineCreateViewModel @Inject constructor(private val repository: Routine
     private var _routineDescription = MutableLiveData<String>("")
     private var _routineExercises = MutableLiveData<List<Routine.Exercises>>()
 
+    private var _goToExercise = MutableLiveData<Event<String>>()
+    val goToExercise: LiveData<Event<String>> get() = _goToExercise
+
     fun setName(routineName: String) {
         _routineName.value = routineName
     }
@@ -39,5 +42,9 @@ class RoutineCreateViewModel @Inject constructor(private val repository: Routine
                 )
             )
         }
+    }
+
+    fun onExerciseClicked(exerciseId: String) {
+        _goToExercise.value = Event(exerciseId)
     }
 }
