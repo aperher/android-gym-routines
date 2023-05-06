@@ -7,7 +7,8 @@ class RoutineDetailRepositoryImpl @Inject constructor(private val dataSource: Ro
     override fun deleteRoutine(idRoutine: String) {
         dataSource.deleteRoutine(idRoutine)
     }
-    fun getRoutine(idRoutine: String): RoutineDetail {
+
+    override fun getRoutine(idRoutine: String): RoutineDetail {
         return dataSource.getRoutine(idRoutine)
     }
 }
