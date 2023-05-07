@@ -50,7 +50,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
     private fun initObservers() {
         viewModel.listMessages.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.submitList(it.toMutableList())
         }
 
         viewModel.isTextEmpty.observe(viewLifecycleOwner) {

@@ -12,4 +12,6 @@
     <string name="chat">Chat</string>
     <string name="profile_pic">Profile pic</string>
     <string name="guardar">Guardar</string>
+    <string name="borrar_rutina">Borrar rutina</string>
+    <string name="editar_rutina">Editar rutina</string>
 </resources>
