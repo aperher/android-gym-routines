@@ -9,7 +9,7 @@
 
     </item>
     <item
-        android:id="@+id/edirRoutine"
+        android:id="@+id/editRoutine"
         android:title="@string/editar_rutina"
         app:showAsAction="never"
         android:icon="@drawable/edit">

@@ -9,11 +9,11 @@ data class RoutineDetail(
     var isPublic: Boolean,
     var imageURL: String,
     var description: String,
-    var exercises: List<Exercises>,
+    var exercises: List<ExercisesDetail>,
     var equipment: List<String>
 ) {
 
-    data class Exercises(
+    data class ExercisesDetail(
         var name: String,
         var equipment: String,
         var primaryMuscles: String,
