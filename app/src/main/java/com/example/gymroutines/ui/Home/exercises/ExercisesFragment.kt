@@ -48,7 +48,7 @@ class ExercisesFragment: Fragment(R.layout.fragment_catalog_exercises) {
     }
 
     private fun addExercisesToRoutine() {
-        navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
+        //navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
     }
 
     private fun initAdapter() {

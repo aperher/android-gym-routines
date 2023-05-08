@@ -12,12 +12,12 @@ import com.example.gymroutines.databinding.FragmentRoutineCreateBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RoutineCreateFragment: Fragment(R.layout.fragment_routine_create) {
+class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
     private var _binding: FragmentRoutineCreateBinding? = null
     private val binding get() = _binding!!
     private var _navControllerHome: NavController? = null
     private val navControllerHome get() = _navControllerHome!!
-    private val viewModel: RoutineCreateViewModel by viewModels() //REVISAR
+    private val viewModel: RoutineCreateViewModel by viewModels()
     private lateinit var adapter: RoutineExercisesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,10 +43,13 @@ class RoutineCreateFragment: Fragment(R.layout.fragment_routine_create) {
         binding.btnAddExercise.setOnClickListener {
             navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
         }
+        binding.btnGuardar.setOnClickListener {
+            // Crear rutina
+        }
     }
 
     private fun initAdapter() {
-        adapter = RoutineExercisesAdapter{ exerciseId ->
+        adapter = RoutineExercisesAdapter { exerciseId ->
             viewModel.onExerciseClicked(exerciseId)
         }
         binding.rvRoutineExercises.adapter = adapter
