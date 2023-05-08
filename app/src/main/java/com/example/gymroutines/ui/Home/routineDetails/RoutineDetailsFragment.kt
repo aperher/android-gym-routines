@@ -1,6 +1,7 @@
 package com.example.gymroutines.ui.Home.routineDetails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -59,21 +60,23 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details), Dele
         _navControllerHome = view.findNavController()
         initUI()
     }
-
     private fun initUI() {
-
         initObservers()
-        initApadters()
+        initAdapters()
 
     }
-    private fun initApadters() {
+    private fun initAdapters() {
         Equipmentadapter = RoutineDetailEquipmentAdapter()
         binding.rvEquipment.adapter = Equipmentadapter
         Exercisesadapter = RoutineDetailExercisesAdapter()
         binding.rvExercisesDetails.adapter = Exercisesadapter
     }
     private fun initObservers() {
-        viewModel.routine.observe(viewLifecycleOwner) {
+        viewModel.getRoutine(arguments?.getString("id")!!).observe(viewLifecycleOwner) {
+            Log.d("routine", it.toString())
+            binding.tvRotuineTitle.text = it.title
+            binding.tvRotuineLevel.text = it.level
+            binding.tvdescription.text = it.description
             Equipmentadapter.submitList(it.equipment)
             Exercisesadapter.submitList(it.exercises)
         }
