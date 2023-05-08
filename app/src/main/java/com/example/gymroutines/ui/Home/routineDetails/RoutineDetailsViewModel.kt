@@ -9,8 +9,9 @@ import com.example.gymroutines.data.routinedatails.RoutineDetailRepositoryImpl
 import com.example.gymroutines.data.routinesCatalog.RoutinesCatalogRepository
 import com.example.gymroutines.model.Messages
 import com.example.gymroutines.model.RoutineDetail
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
+@HiltViewModel
 class RoutineDetailsViewModel @Inject constructor(private val repository: RoutineDetailRepository): ViewModel() {
 
     val routine: LiveData<RoutineDetail> =
