@@ -17,4 +17,8 @@ class RoutinesCatalogRepositoryImpl @Inject constructor(private val dataSource: 
         }
     }
 
+    override fun getRoutinesByCatalog(catalogTitle: String): Flow<List<Catalog>> {
+        TODO("Not yet implemented")
+    }
+
 }

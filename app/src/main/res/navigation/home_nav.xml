@@ -17,6 +17,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_routinesFragment_to_modalBottomSheet"
+            app:destination="@id/modalBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -55,4 +58,13 @@
         android:id="@+id/editProfileFragment"
         android:name="com.example.gymroutines.ui.Home.profile.editProfile.EditProfileFragment"
         android:label="EditProfileFragment" />
+    <dialog
+        android:id="@+id/modalBottomSheet"
+        android:name="com.example.gymroutines.ui.Home.routinesCatalog.ModalBottomSheet"
+        android:label="ModalBottomSheet"
+        tools:layout="@layout/bottom_sheet">
+        <action
+            android:id="@+id/action_modalBottomSheet_to_routinesFragment"
+            app:destination="@id/routinesFragment" />
+    </dialog>
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.gymroutines.ui.Home.exercises
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.gymroutines.data.exercise.ExerciseRepository
 import com.example.gymroutines.model.Exercise
@@ -23,10 +24,11 @@ class ExercisesViewModel @Inject constructor(private val repository: ExerciseRep
 
     private fun getExercises() {
         viewModelScope.launch {
-            repository.getExercises("", "").fold(onSuccess = {
+            Log.d("kjgk", "jimnuyghvbytfcvtf a")
+            repository.getExercises().fold(onSuccess = {
                 _exercisesCatalog.value = it
             }, onFailure = {
-                TODO()
+                Log.d("ha petado", "hola")
             })
         }
     }

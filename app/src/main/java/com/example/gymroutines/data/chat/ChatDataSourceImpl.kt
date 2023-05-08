@@ -23,8 +23,7 @@ class ChatDataSourceImpl @Inject constructor(
     private val auth: FirebaseAuth,
     private val db: FirebaseFirestore,
     private val profile: ProfileRepository
-) :
-    ChatDataSource {
+) : ChatDataSource {
     var userName  = ""
     override fun getMessages(): Flow<MessagesDto> = callbackFlow {
         val query = db.collection("messages").document("messages")

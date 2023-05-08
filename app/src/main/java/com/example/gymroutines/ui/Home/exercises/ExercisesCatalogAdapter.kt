@@ -11,10 +11,11 @@ import com.example.gymroutines.model.Exercise
 
 class ExercisesCatalogAdapter : ListAdapter<Exercise, ExercisesCatalogAdapter.ViewHolder>(ExercisesDiff) {
     class ViewHolder (private val binding: ExerciseItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
         @SuppressLint("SetTextI18n")
         fun bind(exercise: Exercise) {
             binding.tvExerciseName.text = exercise.name
-            binding.tvExerciseInfo.text = exercise.equipment + ". " + exercise.primaryMuscle
+            binding.tvExerciseInfo.text = exercise.equipment + ". " + exercise.primaryMuscles
         }
     }
 

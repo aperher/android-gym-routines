@@ -9,14 +9,17 @@ import com.example.gymroutines.data.routinedatails.RoutineDetailRepositoryImpl
 import com.example.gymroutines.data.routinesCatalog.RoutinesCatalogRepository
 import com.example.gymroutines.model.Messages
 import com.example.gymroutines.model.RoutineDetail
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class RoutineDetailsViewModel @Inject constructor(private val repository: RoutineDetailRepository): ViewModel() {
-
-    val routine: LiveData<RoutineDetail> =
-        repository.getRoutine("2dczqMf9fAGkt6ubFOm4").asLiveData()
+@HiltViewModel
+class RoutineDetailsViewModel @Inject constructor(private val repository: RoutineDetailRepository) :
+    ViewModel() {
 
     fun deleteRoutine(idRoutine: String) {
         repository.deleteRoutine(idRoutine)
     }
+
+    fun getRoutine(idRoutine: String): LiveData<RoutineDetail> =
+        repository.getRoutine(idRoutine).asLiveData()
 }
