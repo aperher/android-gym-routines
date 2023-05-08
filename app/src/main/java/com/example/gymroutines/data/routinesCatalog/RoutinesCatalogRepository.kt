@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface RoutinesCatalogRepository {
     fun getRoutinesCatalog(): Flow<List<Catalog>>
+    fun getRoutinesByCatalog(catalogTitle: String): Flow<List<Catalog>>
 }

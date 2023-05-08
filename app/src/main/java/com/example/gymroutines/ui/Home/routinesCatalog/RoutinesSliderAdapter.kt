@@ -40,8 +40,8 @@ class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Un
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: RoutineItemBinding =
-            RoutineItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = RoutineItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
