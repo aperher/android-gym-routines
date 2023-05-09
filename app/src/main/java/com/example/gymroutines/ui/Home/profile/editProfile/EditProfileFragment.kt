@@ -1,21 +1,17 @@
 package com.example.gymroutines.ui.Home.profile.editProfile
 
 import android.os.Bundle
-import android.text.Editable
+import android.os.Handler
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentEditProfileBinding
 import com.example.gymroutines.ui.Home.profile.ProfileViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
+import androidx.core.widget.addTextChangedListener
 
 class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
     private var _binding: FragmentEditProfileBinding? = null
@@ -28,36 +24,44 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
         _binding = FragmentEditProfileBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
         _navControllerHome = view.findNavController()
-        //set listener for editProfilePhotoButton
-        val editProfilePhotoButton = view.findViewById<FloatingActionButton>(R.id.editProfilePhotoButton)
-        editProfilePhotoButton.setOnClickListener{
-            Toast.makeText(context,"Edit Photo", Toast.LENGTH_SHORT).show()
-        }
-        //Set listener for savebutton
-        val saveButton = view.findViewById<Button>(R.id.saveButton)
-        saveButton.setOnClickListener{
-            saveChangedData()
-        }
-        //Set listener for cancelButton
-        val cancelButton = view.findViewById<Button>(R.id.cancelButton)
-        cancelButton.setOnClickListener {
-            Toast.makeText(context,"Cancel", Toast.LENGTH_SHORT).show()
-            navControllerHome?.popBackStack()
-        }
-
-        //Set text on textfields
         initUI()
     }
 
     private fun initUI() {
+        initObservers()
+        initListeners()
         binding.profileNameText.setText(viewModel.user.value?.username)
-        binding.actualPasswordText.setText(null)
-        binding.newPasswordText.setText(null)
-        binding.repeatPasswordText.setText(null)
     }
 
+    private fun initObservers(){
+
+    }
+
+    private fun initListeners(){
+        val editProfilePhotoButton = binding.editProfilePhotoButton//view.findViewById<FloatingActionButton>(R.id.editProfilePhotoButton)
+        editProfilePhotoButton.setOnClickListener{
+            Toast.makeText(context,"Edit Photo", Toast.LENGTH_SHORT).show()
+        }
+        //Set listener for savebutton
+        val saveButton = binding.saveButton//view.findViewById<Button>(R.id.saveButton)
+        saveButton.setOnClickListener{
+            saveChangedData()
+        }
+        //Set listener for cancelButton
+        val cancelButton = binding.cancelButton//view.findViewById<Button>(R.id.cancelButton)
+        cancelButton.setOnClickListener {
+            Toast.makeText(context,"Cancel", Toast.LENGTH_SHORT).show()
+            navControllerHome?.popBackStack()
+        }
+    }
     private fun saveChangedData(){
-        Toast.makeText(context,binding.profileNameText.text, Toast.LENGTH_SHORT).show()
-        viewModel.updateUserData(binding.profileNameText.text.toString(), binding.actualPasswordText.text.toString(),binding.newPasswordText.text.toString(),binding.repeatPasswordText.text.toString())
+        var result = false
+        result = viewModel.updateUserData(binding.profileNameText.text.toString())
+        navControllerHome?.popBackStack()
+        if(result){
+            Toast.makeText(context,"Actualizado con exito", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context,"Error en la actualizacion", Toast.LENGTH_SHORT).show()
+        }
     }
 }

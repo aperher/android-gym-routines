@@ -1,5 +1,6 @@
 package com.example.gymroutines.ui.Home.profile
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +17,11 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
     //Get user data to update UI
     private var _currentuser = MutableLiveData<User>()
     val user: LiveData<User> get() = _currentuser
+    private var _password = MutableLiveData<String>()
+    val password: LiveData<String> get() = _password
+    private var _repeatPassword = MutableLiveData<String>()
+    val repeatPassword: LiveData<String> get() = _repeatPassword
+
 
     init {
         getUser()
@@ -31,47 +37,17 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
         }
     }
 
-    fun updateUserData(username: String?, actualPassword: String?, newPassword: String?, repeatNewPassword: String?){
-        if((username != null && actualPassword != null && newPassword != null && repeatNewPassword != null) && username != user.value?.username){
-            //Actualizar nombre de usuario y contraseña si es posible updateAllUserData
-            if(actualPassword.equals(user.value?.password) && (newPassword.equals(repeatNewPassword))){
-                /*viewModelScope.launch{
-                    repository.updateAllUserData(username,newPassword).fold(onSuccess = {
-                        Toast.makeText(null,"Data sucessfully updated", Toast.LENGTH_SHORT).show()
-                    }, onFailure = {
-                        TODO()
-                    })
-                }*/
-                Toast.makeText(null,"Data sucessfully updated", Toast.LENGTH_SHORT).show()
-            }
-            if(!actualPassword.equals(user.value?.password)){
-                Toast.makeText(null,"Contraseña incorrecta", Toast.LENGTH_SHORT).show()
-            }
-            if(!newPassword.equals(repeatNewPassword)){
-                Toast.makeText(null,"Contraseñas no coinciden", Toast.LENGTH_SHORT).show()
-            }
-        }
-        else if(username != null){
-            //Actualizar unicamente el nombre de usuario updateUserName
-            /*viewModelScope.launch {
-                repository.updateUserName(username).fold(onSuccess = {
-
+    fun updateUserData(username: String) : Boolean{
+        var result = false
+        if(user.value != null && username != null){
+            viewModelScope.launch{
+                repository.updateUserName(username,user.value!!).fold(onSuccess = {
+                    result = true
                 }, onFailure = {
-                    TODO()
+                    result = false
                 })
-            }*/
-            Toast.makeText(null,"Nombre de usuario cambiado", Toast.LENGTH_SHORT).show()
+            }
         }
-        else if(actualPassword != null && newPassword != null && repeatNewPassword != null){
-            //Actualizar unicamente la contraseña si es posible updateUserPassword
-            /*viewModelScope.launch{
-                repository.updateUserPassword(newPassword).fold(onSuccess = {
-
-                }, onFailure = {
-                    TODO()
-                })
-            }*/
-            Toast.makeText(null,"Contraseña cambiada", Toast.LENGTH_SHORT).show()
-        }
+        return result
     }
 }
