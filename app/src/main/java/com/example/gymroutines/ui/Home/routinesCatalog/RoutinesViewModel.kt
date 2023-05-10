@@ -3,9 +3,12 @@ package com.example.gymroutines.ui.Home.routinesCatalog
 import androidx.lifecycle.*
 import com.example.gymroutines.data.routinesCatalog.RoutinesCatalogRepository
 import com.example.gymroutines.model.Catalog
+import com.example.gymroutines.model.CatalogType
 import com.example.gymroutines.model.RoutinePreview
 import com.example.gymroutines.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,7 +18,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
     val goToRoutineDetails: LiveData<Event<String>> get() = _goToRoutineDetails
 
     val routinesCatalog: LiveData<List<Catalog>> =
-        repository.getRoutinesCatalog().asLiveData()
+        repository.getRoutinesCatalog().catch { TODO() }.asLiveData()
 
     private var _routinesList = MutableLiveData<List<RoutinePreview>?>(null)
     val routinesList: LiveData<List<RoutinePreview>?> get() = _routinesList
@@ -26,7 +29,17 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         _goToRoutineDetails.value = Event(routineId)
     }
 
-    fun onShowAllClicked(catalogTitle: String) {
-        //_routinesList.value =
+    fun onShowAllClicked(catalogTitle: CatalogType) {
+        viewModelScope.launch {
+            repository.getRoutinesByCatalog(catalogTitle).fold(onSuccess = {
+                _routinesList.value = it
+            }, onFailure = {
+                TODO()
+            })
+        }
+    }
+
+    fun showCatalog() {
+        _routinesList.value = null
     }
 }

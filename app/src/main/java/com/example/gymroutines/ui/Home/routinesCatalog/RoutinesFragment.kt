@@ -2,6 +2,7 @@ package com.example.gymroutines.ui.Home.routinesCatalog
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +28,7 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         _binding = FragmentCatalogRoutinesBinding.bind(view)
         _navControllerHome = view.findNavController()
 
+        onBackPressedHandler()
         initUI()
     }
 
@@ -34,6 +36,21 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         super.onDestroyView()
         _binding = null
         _navControllerHome = null
+    }
+
+    private fun onBackPressedHandler() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (viewModel.routinesList.value != null) {
+                        viewModel.showCatalog()
+                    } else {
+                        isEnabled = false
+                        requireActivity().onBackPressed()
+                    }
+                }
+            })
     }
 
     private fun initUI() {
@@ -54,6 +71,13 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         binding.recyclerView.adapter = catalogAdapter
     }
 
+    private fun initRoutineListAdapter() {
+        routineListAdapter = RoutinesListAdapter { routineId ->
+            viewModel.onRoutineClicked(routineId)
+        }
+        binding.recyclerView.adapter = routineListAdapter
+    }
+
     private fun initObservers() {
         viewModel.goToRoutineDetails.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { routineId ->
@@ -71,12 +95,13 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         }
 
         viewModel.routinesList.observe(viewLifecycleOwner) { routineList ->
-           if (routineList != null) {
-               routineListAdapter = RoutinesListAdapter { routineId ->
-                   viewModel.onRoutineClicked(routineId)
-               }
-               binding.recyclerView.adapter = routineListAdapter
-           }
+            if (routineList != null) {
+                initRoutineListAdapter()
+                routineListAdapter.submitList(routineList)
+            } else {
+                initCatalogAdapter()
+                catalogAdapter.submitList(viewModel.routinesCatalog.value)
+            }
         }
     }
 

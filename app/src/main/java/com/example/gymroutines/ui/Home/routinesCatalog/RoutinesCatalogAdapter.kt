@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.gymroutines.databinding.RoutineSliderItemBinding
 import com.example.gymroutines.model.Catalog
+import com.example.gymroutines.model.CatalogType
 
 class RoutinesCatalogAdapter(
     private val onRoutineClicked: (idRoutine: String) -> Unit,
-    private val onShowAllClicked: (idCatalog: String) -> Unit
+    private val onShowAllClicked: (idCatalog: CatalogType) -> Unit
 ) : ListAdapter<Catalog, RoutinesCatalogAdapter.SliderItemViewHolder>(CatalogDiff) {
     // Para que los recyclerviews internos de cada item utilicen siempre la misma viewPool
     private val viewPool = RecyclerView.RecycledViewPool()
@@ -30,7 +31,7 @@ class RoutinesCatalogAdapter(
     inner class SliderItemViewHolder(private val binding: RoutineSliderItemBinding) :
         ViewHolder(binding.root) {
         fun bind(slider: Catalog) {
-            binding.tvSliderTitle.text = slider.title
+            binding.tvSliderTitle.text = slider.title.value
 
             binding.tvShowAll.setOnClickListener {
                 onShowAllClicked(slider.title)
