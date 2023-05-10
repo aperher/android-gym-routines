@@ -20,6 +20,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
     val routinesCatalog: LiveData<List<Catalog>> =
         repository.getRoutinesCatalog().catch { TODO() }.asLiveData()
 
+    // Cuando routinesList es null, se muestra el catálogo (routinesCatalog)
     private var _routinesList = MutableLiveData<List<RoutinePreview>?>(null)
     val routinesList: LiveData<List<RoutinePreview>?> get() = _routinesList
 

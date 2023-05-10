@@ -39,7 +39,8 @@ class RoutinesListAdapter(private val onRoutineClicked: (idRoutine: String) -> U
         }
 
         fun bind(routine: RoutinePreview) {
-            binding.title.text = routine.title
+            binding.tvTitle.text = routine.title
+            binding.tvInfo.text = routine.information
             //binding.image.setImageResource(routine.image)
         }
     }

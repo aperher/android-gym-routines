@@ -53,7 +53,8 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
     override suspend fun getRoutinesByCatalog(catalogTitle: CatalogType): Result<List<RoutinePreviewDto>> =
         runCatching {
             val query: Query = when (catalogTitle) {
-                CatalogType.Created, CatalogType.Favourite -> fireStore.collection(COLLECTION_CATALOGS)
+                CatalogType.Created-> fireStore.collection(COLLECTION_ROUTINES).whereEqualTo(FIELD_USER_ID, userId)
+                CatalogType.Favourite -> fireStore.collection(COLLECTION_CATALOGS)
                     .whereEqualTo(FIELD_TITLE, catalogTitle.value).whereEqualTo(FIELD_USER_ID, userId)
                 CatalogType.Popular -> fireStore.collection(COLLECTION_ROUTINES)
                 CatalogType.Community -> fireStore.collection(COLLECTION_ROUTINES)
@@ -62,7 +63,7 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
             val snapshot = query.get().await()
 
             val routines = mutableListOf<RoutinePreviewDto>()
-            if (catalogTitle != CatalogType.Created && catalogTitle != CatalogType.Favourite) {
+            if (catalogTitle != CatalogType.Favourite) {
                 for (document in snapshot.documents) {
                     val routine = document.toObject(RoutinePreviewDto::class.java)
                     routine?.id = document.reference
