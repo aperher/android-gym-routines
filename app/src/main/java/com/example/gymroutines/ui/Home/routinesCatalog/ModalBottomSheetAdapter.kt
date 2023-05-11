@@ -8,7 +8,7 @@ import com.example.gymroutines.databinding.TextViewItemBinding
 
 class ModalBottomSheetAdapter(
     private val items: List<String>,
-    private val selectedValue: String?,
+    private val selectedValues: List<String>?,
     private val onClicked: (value: String) -> Unit
 ) : RecyclerView.Adapter<ModalBottomSheetAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,20 +26,21 @@ class ModalBottomSheetAdapter(
     inner class ViewHolder(private val binding: TextViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val value = items[position]
-                    onClicked(value)
-                }
-            }
-        }
-
         fun bind(item: String) {
             binding.tvItem.text = item
-            if (item == selectedValue)
-                binding.ivChecked.visibility = View.VISIBLE
+
+            binding.root.setOnClickListener {
+                if (binding.ivChecked.visibility == View.VISIBLE)
+                    binding.ivChecked.visibility = View.GONE
+                else
+                    binding.ivChecked.visibility = View.VISIBLE
+                onClicked(item)
+            }
+
+            selectedValues?.let {
+                if (it.contains(item))
+                    binding.ivChecked.visibility = View.VISIBLE
+            }
         }
     }
 }

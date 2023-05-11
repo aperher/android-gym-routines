@@ -1,13 +1,11 @@
 package com.example.gymroutines.ui.Home.routinesCatalog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.BottomSheetBinding
-import com.example.gymroutines.model.FilterType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ModalBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet) {
     private var _binding: BottomSheetBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ModalBottomSheetViewModel by viewModels()
+    private val viewModel: RoutinesViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = BottomSheetBinding.bind(view)
@@ -24,16 +22,8 @@ class ModalBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet) {
     }
 
     private fun initUI() {
-        setDataPassedToViewModel()
         initObservers()
-    }
-
-    private fun setDataPassedToViewModel() {
-        val filter: FilterType = arguments?.getSerializable("filter") as FilterType
-        viewModel.setFilterType(filter)
-
-        val selectedItem: String? = arguments?.getString("selectedItem")
-        viewModel.setSelectedItem(selectedItem)
+        initListeners()
     }
 
     private fun initObservers() {
@@ -42,21 +32,22 @@ class ModalBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet) {
         }
 
         viewModel.list.observe(viewLifecycleOwner) { list ->
-            val adapter = ModalBottomSheetAdapter(list, viewModel.selectedItem.value) {
-                viewModel.onItemSelected(it)
+            val adapter = ModalBottomSheetAdapter(list, viewModel.selectedItems) { filter ->
+                viewModel.addFilter(filter)
             }
             binding.rvBottomSheet.adapter = adapter
         }
+    }
 
-        viewModel.goToRoutinesFragment.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
-                goToRoutinesFragment()
-            }
+    private fun initListeners() {
+        binding.ivClose.setOnClickListener {
+            dismissNow()
         }
     }
 
-    private fun goToRoutinesFragment() {
-        val bundle = bundleOf(viewModel.filterType.value.toString() to viewModel.selectedItem.value)
-        findNavController().navigate(R.id.action_modalBottomSheet_to_routinesFragment, bundle)
+    override fun dismiss() {
+        super.dismiss()
+        //Hacer llamada de filtrado
+        Log.d("ModalBottomSheet", "dismiss")
     }
 }

@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.ExercisesDetailItemBinding
-import com.example.gymroutines.model.Messages
 import com.example.gymroutines.model.RoutineDetail
 
-class RoutineDetailExercisesAdapter(): ListAdapter<RoutineDetail.ExercisesDetail, RoutineDetailExercisesAdapter.ViewHolder>(ExercisesDetailDiff) {
+class RoutineDetailExercisesAdapter: ListAdapter<RoutineDetail.ExercisesDetail, RoutineDetailExercisesAdapter.ViewHolder>(ExercisesDetailDiff) {
     class ViewHolder(private val binding: ExercisesDetailItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(routineDetail: RoutineDetail.ExercisesDetail) {
             binding.tvExerciseName.text = routineDetail.name

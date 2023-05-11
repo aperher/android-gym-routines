@@ -5,7 +5,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
@@ -19,7 +19,7 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
     private val binding get() = _binding!!
     private var _navControllerHome: NavController? = null
     private val navControllerHome get() = _navControllerHome!!
-    private val viewModel: RoutinesViewModel by viewModels()
+    private val viewModel: RoutinesViewModel by activityViewModels()
     private lateinit var catalogAdapter: RoutinesCatalogAdapter
     private lateinit var routineListAdapter: RoutinesListAdapter
 
@@ -38,28 +38,13 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         _navControllerHome = null
     }
 
-    private fun onBackPressedHandler() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (viewModel.routinesList.value != null) {
-                        viewModel.showCatalog()
-                    } else {
-                        isEnabled = false
-                        requireActivity().onBackPressed()
-                    }
-                }
-            })
-    }
-
     private fun initUI() {
-        initCatalogAdapter()
+        initAdapters()
         initObservers()
         initListeners()
     }
 
-    private fun initCatalogAdapter() {
+    private fun initAdapters() {
         catalogAdapter = RoutinesCatalogAdapter(
             onRoutineClicked = { routineId ->
                 viewModel.onRoutineClicked(routineId)
@@ -68,20 +53,22 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
                 viewModel.onShowAllClicked(catalogTitle)
             }
         )
-        binding.recyclerView.adapter = catalogAdapter
-    }
 
-    private fun initRoutineListAdapter() {
         routineListAdapter = RoutinesListAdapter { routineId ->
             viewModel.onRoutineClicked(routineId)
         }
-        binding.recyclerView.adapter = routineListAdapter
     }
 
     private fun initObservers() {
         viewModel.goToRoutineDetails.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { routineId ->
                 goToRoutineDetails(routineId)
+            }
+        }
+
+        viewModel.goToBottomSheetFilter.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                openBottomSheetDialog()
             }
         }
 
@@ -96,10 +83,12 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
 
         viewModel.routinesList.observe(viewLifecycleOwner) { routineList ->
             if (routineList != null) {
-                initRoutineListAdapter()
+                binding.ivArrowBack.visibility = View.VISIBLE
+                binding.recyclerView.adapter = routineListAdapter
                 routineListAdapter.submitList(routineList)
             } else {
-                initCatalogAdapter()
+                binding.ivArrowBack.visibility = View.GONE
+                binding.recyclerView.adapter = catalogAdapter
                 catalogAdapter.submitList(viewModel.routinesCatalog.value)
             }
         }
@@ -108,14 +97,18 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
     private fun initListeners() {
         binding.apply {
             chipMuscles.setOnClickListener {
-                openBottomSheetDialog(FilterType.Muscles)
+                viewModel.openFilter(FilterType.Muscles)
             }
             chipEquipment.setOnClickListener {
-                openBottomSheetDialog(FilterType.Equipment)
+                viewModel.openFilter(FilterType.Equipment)
             }
             chipLevel.setOnClickListener {
-                openBottomSheetDialog(FilterType.Level)
+                viewModel.openFilter(FilterType.Level)
             }
+        }
+
+        binding.ivArrowBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 
@@ -124,8 +117,22 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
         navControllerHome.navigate(R.id.action_routinesFragment_to_routineDetails, bundle)
     }
 
-    private fun openBottomSheetDialog(filter: FilterType) {
-        val bundle = bundleOf("filter" to filter)
-        navControllerHome.navigate(R.id.action_routinesFragment_to_modalBottomSheet, bundle)
+    private fun openBottomSheetDialog() {
+        navControllerHome.navigate(R.id.action_routinesFragment_to_modalBottomSheet)
+    }
+
+    private fun onBackPressedHandler() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (viewModel.routinesList.value != null) {
+                        viewModel.showCatalog()
+                    } else {
+                        isEnabled = false
+                        requireActivity().onBackPressed()
+                    }
+                }
+            })
     }
 }

@@ -62,11 +62,5 @@
         android:id="@+id/modalBottomSheet"
         android:name="com.example.gymroutines.ui.Home.routinesCatalog.ModalBottomSheet"
         android:label="ModalBottomSheet"
-        tools:layout="@layout/bottom_sheet">
-        <action
-            android:id="@+id/action_modalBottomSheet_to_routinesFragment"
-            app:destination="@id/routinesFragment"
-            app:popUpTo="@id/routinesFragment"
-            app:popUpToInclusive="true" />
-    </dialog>
+        tools:layout="@layout/bottom_sheet"/>
 </navigation>
