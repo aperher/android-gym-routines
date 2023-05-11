@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
@@ -61,27 +62,37 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details), Dele
         initUI()
     }
     private fun initUI() {
-        initObservers()
         initAdapters()
+        initObservers()
+
 
     }
     private fun initAdapters() {
         Equipmentadapter = RoutineDetailEquipmentAdapter()
         binding.rvEquipment.adapter = Equipmentadapter
         Exercisesadapter = RoutineDetailExercisesAdapter()
-        binding.rvExercisesDetails.adapter = Exercisesadapter
+        binding.rvExercises.adapter = Exercisesadapter
     }
     private fun initObservers() {
         viewModel.getRoutine(arguments?.getString("id")!!).observe(viewLifecycleOwner) {
-            Log.d("routine", it.toString())
-            binding.tvRotuineTitle.text = it.title
-            binding.tvRotuineLevel.text = it.level
-            binding.tvdescription.text = it.description
-            Equipmentadapter.submitList(it.equipment)
-            Exercisesadapter.submitList(it.exercises)
+            Log.d("routine", it.exercises.toString())
+            binding.toolbar.title = it.title
+            binding.tvRoutineLevel.text = it.level
+            binding.tvDescription.text = it.description
+            Equipmentadapter.submitList(it.equipment.toMutableList())
+            Exercisesadapter.submitList(it.exercises.toMutableList())
+
+
+
+            requireActivity().addMenuProvider(this,
+                viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
+        _navControllerHome = null
     }
 }
