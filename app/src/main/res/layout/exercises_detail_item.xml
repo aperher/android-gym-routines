@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="7dp"
+    android:layout_marginVertical="4dp"
+    android:orientation="horizontal"
+    android:padding="3dp"
+    android:background="@drawable/border">
+     <LinearLayout
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:orientation="vertical"
+         android:layout_gravity="start">
+         <TextView
+             android:id="@+id/tvExerciseName"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="start"
+             android:text="Crunch"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />
 
+         <TextView
+             android:id="@+id/tvExerciseSeries"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="8dp"
+             android:text="12x 10x 8x"
+             android:textSize="10sp"
+             />
+    </LinearLayout>
     <TextView
-        android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Crunch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvExerciseSeries"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="12x 10x 8x"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExerciseName"
-        tools:ignore="SmallSp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Cuadricpes"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"/>
+</LinearLayout>

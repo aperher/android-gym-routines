@@ -14,4 +14,6 @@
     <string name="guardar">Guardar</string>
     <string name="borrar_rutina">Borrar rutina</string>
     <string name="editar_rutina">Editar rutina</string>
+    <string name="editar_perfil">Editar perfil</string>
+    <string name="cerrar_sesion">Cerrar sesion</string>
 </resources>

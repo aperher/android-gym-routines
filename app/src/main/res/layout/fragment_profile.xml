@@ -50,11 +50,25 @@
                 android:id="@+id/edit_profile_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/email"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:text="Editar perfil"
+                android:text="@string/editar_perfil"
                 app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/cerrar_sesion"
+                android:textColor="#FF002B"
+                android:backgroundTint="@color/white"
+                app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/btGaleria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar foto" />
         </LinearLayout>
     </ScrollView>
 
