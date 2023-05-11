@@ -28,12 +28,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileBinding.bind(view)
         _navControllerHome = view.findNavController()
-        val editProfilebutton = view.findViewById<Button>(R.id.edit_profile_button)
+        val editProfilebutton = binding.editProfileButton//view.findViewById<Button>(R.id.edit_profile_button)
         editProfilebutton.setOnClickListener{
-            //Navigate to edit
             navigateToEdit()
         }
-
+        val closeButton = binding.closeButton
+        closeButton.setOnClickListener {
+            closeSession()
+        }
         initUI()
     }
 
@@ -60,7 +62,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         val activityContext = requireActivity()
         val context = activityContext
         Toast.makeText(context,"Editar perfil", Toast.LENGTH_SHORT).show()
-
         navControllerHome.navigate(R.id.action_profileFragment_to_editProfileFragment)
+    }
+
+    private fun closeSession(){
+        viewModel.closeSession()
+        navControllerMain.navigate(R.id.action_homeFragment_to_loginFragment)
+    }
+
+    override fun onResume(){
+        super.onResume()
+        binding.profileName.setText(viewModel.updatedUserName())
+        Toast.makeText(context,"Editar perfil resume", Toast.LENGTH_SHORT).show()
     }
 }

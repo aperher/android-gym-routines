@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gymroutines.data.auth.AuthRepository
 import com.example.gymroutines.data.profile.ProfileRepository
 import com.example.gymroutines.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val repository: ProfileRepository) : ViewModel() {
+class ProfileViewModel @Inject constructor(private val repository: ProfileRepository, private val auth: AuthRepository) : ViewModel() {
     //Get user data to update UI
     private var _currentuser = MutableLiveData<User>()
     val user: LiveData<User> get() = _currentuser
@@ -49,5 +50,16 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
             }
         }
         return result
+    }
+
+    fun updatedUserName() : String{
+        if(user.value != null){
+            return user.value!!.username
+        }
+        return ""
+    }
+
+    fun closeSession(){
+        auth.logout()
     }
 }
