@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chipEquipment"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:padding="5dp">
-
-    <TextView
-        android:id="@+id/tvEquipmentName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Maquina"
-        android:textStyle="bold"
-        android:background="@drawable/equipment_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingVertical="4dp"
-        android:paddingHorizontal="8dp"
-
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="4dp"
+    android:layout_marginEnd="7dp"
+    android:clickable="false"
+    tools:text="Máquina" />
