@@ -8,8 +8,8 @@ enum class FilterType {
 
 enum class Equipment(val value: String) {
     Barbell("Barra"),
-    Machines("Máquinas"),
-    Dumbbells("Mancuernas"),
+    Machine("Máquina"),
+    Dumbbell("Mancuerna"),
     BodyWeight("Peso corporal"),
     Pulley("Polea")
 }

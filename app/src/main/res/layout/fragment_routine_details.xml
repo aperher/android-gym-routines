@@ -23,7 +23,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivRoutineImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ropes"
@@ -39,6 +39,16 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/favorite_border"
+        android:tint="@color/white" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -79,7 +89,6 @@
                 android:orientation="vertical"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
                 tools:listitem="@layout/exercises_detail_item" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>

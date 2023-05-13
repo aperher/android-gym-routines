@@ -40,31 +40,37 @@
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipMuscles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Todo el cuerpo" />
+                    android:text="Todo el cuerpo"
+                    app:closeIcon="@drawable/arrow_down"
+                    app:closeIconEnabled="true" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipEquipment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cualquier equipamiento" />
+                    android:text="Cualquier equipamiento"
+                    app:closeIcon="@drawable/arrow_down"
+                    app:closeIconEnabled="true" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Todos los niveles" />
+                    android:text="Todos los niveles"
+                    app:closeIcon="@drawable/arrow_down"
+                    app:closeIconEnabled="true" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 

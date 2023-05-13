@@ -19,19 +19,20 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
     private var _goToBottomSheetFilter = MutableLiveData<Event<Boolean>>()
     val goToBottomSheetFilter: LiveData<Event<Boolean>> get() = _goToBottomSheetFilter
 
+    // Cuando routinesList es null, se muestra el catálogo
     val routinesCatalog: LiveData<List<Catalog>> =
         repository.getRoutinesCatalog().catch { TODO() }.asLiveData()
 
-    // Cuando routinesList es null, se muestra el catálogo (routinesCatalog)
+    val isLoading: LiveData<Boolean> = routinesCatalog.map { it.isEmpty() }
+
+    // Cuando routinesList es distinto de null, se muestra el listado de rutinas (filtros o VerTodo)
     private var _routinesList = MutableLiveData<List<RoutinePreview>?>(null)
     val routinesList: LiveData<List<RoutinePreview>?> get() = _routinesList
-
-    val isLoading: LiveData<Boolean> = routinesCatalog.map { it.isEmpty() }
 
     //BottomSheet
 
     private lateinit var filterType: FilterType
-    private var bsSelectedItems : MutableMap<FilterType, List<String>> = mutableMapOf()
+    private var bsSelectedItems : MutableMap<FilterType, MutableList<String>> = mutableMapOf()
     val selectedItems get() = bsSelectedItems[filterType] ?: emptyList()
 
     private var _bsTitle = MutableLiveData<String>()
@@ -58,7 +59,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         this.filterType = filterType
         when (filterType) {
             FilterType.Muscles -> {
-                _bsTitle.value = "Selecciona un músculo"; _bsList.value =
+                _bsTitle.value = "Selecciona músculos"; _bsList.value =
                     Muscles.values().map { it.value }
             }
             FilterType.Equipment -> {
@@ -66,7 +67,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
                     Equipment.values().map { it.value }
             }
             FilterType.Level -> {
-                _bsTitle.value = "Selecciona un nivel"; _bsList.value =
+                _bsTitle.value = "Selecciona niveles"; _bsList.value =
                     Level.values().map { it.value }
             }
         }
@@ -75,11 +76,12 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
 
     fun addFilter(filter: String) {
         if (bsSelectedItems[filterType]?.contains(filter) == true) {
-            bsSelectedItems[filterType] = bsSelectedItems[filterType]?.minus(filter) ?: emptyList()
-            return
+            bsSelectedItems[filterType]?.remove(filter)
+        } else {
+            bsSelectedItems[filterType]?.add(filter) ?: run {
+                bsSelectedItems[filterType] = mutableListOf(filter)
+            }
         }
-
-        bsSelectedItems[filterType] = bsSelectedItems[filterType]?.plus(filter) ?: listOf(filter)
     }
 
     fun showCatalog() {
