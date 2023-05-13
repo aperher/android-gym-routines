@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentCatalogExercisesBinding
+import com.example.gymroutines.ui.Home.routinesCreate.RoutineCreateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,7 +17,7 @@ class ExercisesFragment: Fragment(R.layout.fragment_catalog_exercises) {
     private val binding get() = _binding!!
     private var _navControllerHome: NavController? = null
     private val navControllerHome get() = _navControllerHome!!
-    private val viewModel: ExercisesViewModel by viewModels()
+    private val viewModel: RoutineCreateViewModel by viewModels()
     private lateinit var adapter: ExercisesCatalogAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,26 +34,35 @@ class ExercisesFragment: Fragment(R.layout.fragment_catalog_exercises) {
     }
 
     private fun initUI() {
-        initAdapter()
+        initExercisesAdapter()
         initObservers()
+        initListeners()
+    }
+
+    private fun initExercisesAdapter() {
+        adapter = ExercisesCatalogAdapter { exercise ->
+            viewModel.onExerciseClicked(exercise)
+        }
+        binding.rvExercisesCatalog.adapter = adapter
     }
 
     private fun initObservers() {
         viewModel.exercisesCatalog.observe(viewLifecycleOwner) {
             adapter.submitList(it.toMutableList())
         }
-        viewModel.addExercisesToRoutine.observe(viewLifecycleOwner) {
-            addExercisesToRoutine()
+        //viewModel.addExercisesToRoutine.observe(viewLifecycleOwner) {
+        //    addExercisesToRoutine()
             // pasar ejercicios seleccionados a CreateRoutine
-        }
+        //}
     }
 
     private fun addExercisesToRoutine() {
-        //navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
+        // devolver lista de ejercicios seleccionados
     }
 
-    private fun initAdapter() {
-        adapter = ExercisesCatalogAdapter()
-        binding.rvExercisesCatalog.adapter = adapter
+    private fun initListeners() {
+        binding.btnAddExercises.setOnClickListener {
+            navControllerHome.navigate(R.id.action_exercisesFragment_to_routineCreateFragment)
+        }
     }
 }

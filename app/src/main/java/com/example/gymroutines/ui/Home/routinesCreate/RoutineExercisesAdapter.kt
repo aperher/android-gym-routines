@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.RoutineExerciseItemBinding
 import com.example.gymroutines.model.RoutineExercisePreview
 
-class RoutineExercisesAdapter(private val onExerciseClicked: (idExercise: String) -> Unit) :
+class RoutineExercisesAdapter(private val onRoutineExerciseClicked: (exercise: RoutineExercisePreview) -> Unit) :
     ListAdapter<RoutineExercisePreview, RoutineExercisesAdapter.RoutineExerciseItemViewHolder>(RoutineExerciseDiff) {
     object RoutineExerciseDiff : DiffUtil.ItemCallback<RoutineExercisePreview>() {
         override fun areItemsTheSame(
             oldItem: RoutineExercisePreview,
             newItem: RoutineExercisePreview
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(
@@ -34,7 +34,7 @@ class RoutineExercisesAdapter(private val onExerciseClicked: (idExercise: String
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val exercise = getItem(position)
-                    onExerciseClicked(exercise.id!!)
+                    onRoutineExerciseClicked(exercise)
                 }
             }
         }

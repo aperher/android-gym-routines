@@ -5,11 +5,11 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
-class DeleteRoutineDialogFragment(val delete :DeleteInterface): DialogFragment() {
+class DeleteRoutineDialogFragment(private val delete :DeleteInterface): DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
             .setTitle("Borrar rutina")
-            .setMessage("Estas seguro de que quieres borrar esta rutina?")
+            .setMessage("¿Estás seguro de que quieres borrar esta rutina?")
             .setPositiveButton("Borrar") { _, _ ->
                 delete.positiveButton()
             }

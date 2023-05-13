@@ -16,4 +16,5 @@
     <string name="editar_rutina">Editar rutina</string>
     <string name="editar_perfil">Editar perfil</string>
     <string name="cerrar_sesion">Cerrar sesion</string>
+    <string name="publicar_rutina">Publicar rutina</string>
 </resources>
