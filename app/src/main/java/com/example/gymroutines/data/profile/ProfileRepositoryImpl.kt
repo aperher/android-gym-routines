@@ -24,6 +24,18 @@ class ProfileRepositoryImpl @Inject constructor(val datasource: ProfileDataSourc
         }
         return Username;
     }
+    override suspend fun getImageUrl(): String {
+        var ImageUrl =""
+        runBlocking() {
+            getUser().fold(onSuccess = {
+                ImageUrl =  it.imageUrl
+            }, onFailure = {
+                TODO()
+            })
+
+        }
+        return ImageUrl;
+    }
 
     override suspend fun updateUserName(userName: String, currentuser: User): Result<Boolean> {
         return datasource.updateUserName(userName, currentuser)

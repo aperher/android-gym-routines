@@ -8,6 +8,7 @@ import com.example.gymroutines.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(private val authRepository: AuthRepository) :
@@ -50,8 +51,10 @@ class SignUpViewModel @Inject constructor(private val authRepository: AuthReposi
 
     fun signUp() {
         viewModelScope.launch {
+            val strings = listOf("Perfil1", "Perfil2", "Perfil3", "Perfil4")
+            val indiceAleatorio = Random.nextInt(strings.size)
             val registered: Boolean =
-                authRepository.register(User(_username.value!!, _email.value!!, _password.value!!))
+                authRepository.register(User(_username.value!!, _email.value!!, _password.value!!, strings[indiceAleatorio]))
             if (registered) {
                 _goToHome.value = Event(true)
             }

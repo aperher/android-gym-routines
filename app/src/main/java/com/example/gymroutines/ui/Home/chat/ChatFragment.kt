@@ -56,6 +56,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         viewModel.isTextEmpty.observe(viewLifecycleOwner) {
             binding.btnSend.isEnabled = !it
         }
+
     }
 
     private fun initAdapter() {
@@ -73,6 +74,5 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             binding.EtextMessage.text = Editable.Factory.getInstance().newEditable("")
         }
     }
-
 
 }

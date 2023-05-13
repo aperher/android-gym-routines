@@ -81,6 +81,12 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details), Dele
             binding.tvDescription.text = it.description
             Equipmentadapter.submitList(it.equipment.toMutableList())
             Exercisesadapter.submitList(it.exercises.toMutableList())
+            when(it.imageURL){
+                "gym1" -> binding.ivRoutineImage.setImageResource(R.drawable.gym1)
+                "gym2" -> binding.ivRoutineImage.setImageResource(R.drawable.gym2)
+                "gym3" -> binding.ivRoutineImage.setImageResource(R.drawable.gym3)
+                else -> binding.ivRoutineImage.setImageResource(R.drawable.gym4)
+            }
 
 
 

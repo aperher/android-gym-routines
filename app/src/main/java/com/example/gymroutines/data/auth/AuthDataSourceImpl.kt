@@ -26,3 +26,4 @@ class AuthDataSourceImpl @Inject constructor(
 
     override fun logout() = auth.signOut()
 }
+// Path: app\src\main\java\com\example\gymroutines\data\auth\AuthRepository.kt

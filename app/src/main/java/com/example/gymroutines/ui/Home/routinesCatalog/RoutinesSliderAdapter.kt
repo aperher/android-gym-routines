@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gymroutines.R
 import com.example.gymroutines.databinding.RoutineItemBinding
 import com.example.gymroutines.model.RoutinePreview
 
@@ -35,7 +36,12 @@ class RoutinesSliderAdapter(private val onItemClicked: (idRoutine: String) -> Un
 
         fun bind(routine: RoutinePreview) {
             binding.title.text = routine.title
-            //binding.image.setImageResource(routine.image)
+            when(routine.imageURL){
+                "gym1" -> binding.routineItemImg.setImageResource(R.drawable.gym1)
+                "gym2" -> binding.routineItemImg.setImageResource(R.drawable.gym2)
+                "gym3" -> binding.routineItemImg.setImageResource(R.drawable.gym3)
+                else -> binding.routineItemImg.setImageResource(R.drawable.gym4)
+            }
         }
     }
 

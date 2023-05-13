@@ -30,7 +30,8 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
     private fun initUI() {
         initObservers()
         initListeners()
-        binding.profileNameText.setText(viewModel.user.value?.username)
+        setImage()
+
     }
 
     private fun initObservers(){
@@ -64,4 +65,13 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
             Toast.makeText(context,"Error en la actualizacion", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun setImage() {
+        when(viewModel.user.value!!.imageUrl){
+            "perfil1" -> binding.profileImage.setImageResource(R.drawable.perfil1)
+            "perfil2" -> binding.profileImage.setImageResource(R.drawable.perfil2)
+            "perfil3" -> binding.profileImage.setImageResource(R.drawable.perfil3)
+            else -> binding.profileImage.setImageResource(R.drawable.perfil4)
+        }
+    }
+
 }

@@ -54,6 +54,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             with(binding){
                 profileName.text = viewModel.user.value!!.username
                 email.text = viewModel.user.value!!.email
+                setImage();
             }
         }
     }
@@ -75,4 +76,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.profileName.setText(viewModel.updatedUserName())
         Toast.makeText(context,"Editar perfil resume", Toast.LENGTH_SHORT).show()
     }
+
+    private fun setImage() {
+     when(viewModel.user.value!!.imageUrl){
+         "perfil1" -> binding.profileImage.setImageResource(R.drawable.perfil1)
+         "perfil2" -> binding.profileImage.setImageResource(R.drawable.perfil2)
+         "perfil3" -> binding.profileImage.setImageResource(R.drawable.perfil3)
+         else -> binding.profileImage.setImageResource(R.drawable.perfil4)
+     }
+    }
+
 }

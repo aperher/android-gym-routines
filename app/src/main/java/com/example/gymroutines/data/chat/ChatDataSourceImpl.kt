@@ -1,5 +1,6 @@
 package com.example.gymroutines.data.chat
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.gymroutines.data.chat.model.MessagesDto
 import com.example.gymroutines.data.profile.ProfileRepository
@@ -7,6 +8,7 @@ import com.example.gymroutines.model.Messages
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import io.grpc.okhttp.internal.Platform
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -24,7 +26,8 @@ class ChatDataSourceImpl @Inject constructor(
     private val db: FirebaseFirestore,
     private val profile: ProfileRepository
 ) : ChatDataSource {
-    var userName  = ""
+    var userName = ""
+    var imageUrl = ""
     override fun getMessages(): Flow<MessagesDto> = callbackFlow {
         val query = db.collection("messages").document("messages")
         val registration = query.addSnapshotListener { snapshot, exception ->
@@ -41,10 +44,11 @@ class ChatDataSourceImpl @Inject constructor(
 
     override fun createMessage(text: String): Boolean = runCatching {
         Platform.logger.log(Level.INFO, "dentro del datasoruce")
-            val id = randomString(20)
-            val message = Messages(userName, text, id)
+        val id = randomString(20)
+        val message = Messages(userName, text, id, imageUrl)
         Platform.logger.log(Level.INFO, message.id.toString())
-        db.collection("messages").document("messages").update("messages", FieldValue.arrayUnion(message))
+        db.collection("messages").document("messages")
+            .update("messages", FieldValue.arrayUnion(message))
     }.isSuccess
 
     private fun randomString(longitud: Int): String {
@@ -58,9 +62,11 @@ class ChatDataSourceImpl @Inject constructor(
         }
         return sb.toString()
     }
+
     init {
-        runBlocking {
-          userName = profile.getUserName()
+        runBlocking() {
+            userName = profile.getUserName()
+            imageUrl = profile.getImageUrl()
         }
     }
 }
