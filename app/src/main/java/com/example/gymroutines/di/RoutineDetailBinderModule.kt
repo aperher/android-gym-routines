@@ -1,9 +1,9 @@
 package com.example.gymroutines.di
 
-import com.example.gymroutines.data.routinedatails.RoutineDetailDataSource
-import com.example.gymroutines.data.routinedatails.RoutineDetailDataSourceImpl
-import com.example.gymroutines.data.routinedatails.RoutineDetailRepository
-import com.example.gymroutines.data.routinedatails.RoutineDetailRepositoryImpl
+import com.example.gymroutines.data.routineDetails.RoutineDetailDataSource
+import com.example.gymroutines.data.routineDetails.RoutineDetailDataSourceImpl
+import com.example.gymroutines.data.routineDetails.RoutineDetailRepository
+import com.example.gymroutines.data.routineDetails.RoutineDetailRepositoryImpl
 
 import dagger.Binds
 import dagger.Module

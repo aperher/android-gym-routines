@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/routinesFragment"
-        android:name="com.example.gymroutines.ui.Home.routinesCatalog.RoutinesFragment"
+        android:name="com.example.gymroutines.ui.home.routinesCatalog.RoutinesFragment"
         android:label="RoutinesFragment"
         tools:layout="@layout/fragment_catalog_routines" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.gymroutines.ui.Home.profile.ProfileFragment"
+        android:name="com.example.gymroutines.ui.home.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -32,17 +32,17 @@
     </fragment>
     <fragment
         android:id="@+id/routineDetails"
-        android:name="com.example.gymroutines.ui.Home.routineDetails.RoutineDetailsFragment"
+        android:name="com.example.gymroutines.ui.home.routineDetails.RoutineDetailsFragment"
         android:label="RoutineDetails"
         tools:layout="@layout/fragment_routine_details"/>
     <fragment
         android:id="@+id/chatFragment"
         tools:layout="@layout/fragment_chat"
-        android:name="com.example.gymroutines.ui.Home.chat.ChatFragment"
+        android:name="com.example.gymroutines.ui.home.chat.ChatFragment"
         android:label="ChatFragment" />
     <fragment
         android:id="@+id/routineCreateFragment"
-        android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineCreateFragment"
+        android:name="com.example.gymroutines.ui.home.routinesCreate.RoutineCreateFragment"
         android:label="RoutineCreateFragment"
         tools:layout="@layout/fragment_routine_create" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/exercisesFragment"
-        android:name="com.example.gymroutines.ui.Home.exercises.ExercisesFragment"
+        android:name="com.example.gymroutines.ui.home.exercises.ExercisesFragment"
         android:label="ExercisesFragment"
         tools:layout="@layout/fragment_catalog_exercises" >
         <action
@@ -66,16 +66,16 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.gymroutines.ui.Home.profile.editProfile.EditProfileFragment"
+        android:name="com.example.gymroutines.ui.home.profile.editProfile.EditProfileFragment"
         android:label="EditProfileFragment" />
     <dialog
         android:id="@+id/modalBottomSheet"
-        android:name="com.example.gymroutines.ui.Home.routinesCatalog.ModalBottomSheet"
+        android:name="com.example.gymroutines.ui.home.routinesCatalog.ModalBottomSheet"
         android:label="ModalBottomSheet"
         tools:layout="@layout/bottom_sheet"/>
     <fragment
         android:id="@+id/routineExerciseSeriesFragment"
-        android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineExerciseSeriesFragment"
+        android:name="com.example.gymroutines.ui.home.routinesCreate.RoutineExerciseSeriesFragment"
         android:label="RoutineExerciseSeriesFragment" >
         <action
             android:id="@+id/action_routineExerciseSeriesFragment_to_routineCreateFragment"

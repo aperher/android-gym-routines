@@ -21,4 +21,8 @@
     <string name="anyadir_serie">Añadir serie</string>
     <string name="repeticiones_serie">Repeticiones para esta serie</string>
     <string name="duracion">Duración</string>
+    <string name="nombre_vacio">Debes añadir nombre a la rutina</string>
+    <string name="descripcion_vacia">Debes añadir una descripción</string>
+    <string name="ejercicios_vacio">Debe haber al menos un ejercicio</string>
+    <string name="duracion_vacia">Debes añadir una duración</string>
 </resources>
