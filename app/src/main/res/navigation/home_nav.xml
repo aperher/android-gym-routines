@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_routineCreateFragment_to_routineExerciseSeriesFragment"
             app:destination="@id/routineExerciseSeriesFragment" />
+        <action
+            android:id="@+id/action_routineCreateFragment_to_routinesFragment"
+            app:destination="@id/routinesFragment" />
     </fragment>
     <fragment
         android:id="@+id/exercisesFragment"

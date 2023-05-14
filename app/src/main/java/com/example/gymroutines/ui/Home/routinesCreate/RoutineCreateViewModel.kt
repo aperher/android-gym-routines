@@ -37,9 +37,6 @@ class RoutineCreateViewModel @Inject constructor(
     val activeExercise: LiveData<RoutineExercisePreview> get() = _activeExercise
 
     // Exercises
-    //private var _addExercisesToRoutine = MutableLiveData<Event<String>>()
-    //val addExercisesToRoutine: LiveData<Event<String>> get() = _addExercisesToRoutine
-
     private var _exercisesCatalog = MutableLiveData<List<Exercise>>()
     val exercisesCatalog: LiveData<List<Exercise>> get() = _exercisesCatalog
 
@@ -114,7 +111,7 @@ class RoutineCreateViewModel @Inject constructor(
         return Routine(
             "",
             routineName.value!!,
-            "Si",
+            "Easy",
             routinePublic.value!!,
             strings[indiceAleatorio],
             routineDescription.value!!,
