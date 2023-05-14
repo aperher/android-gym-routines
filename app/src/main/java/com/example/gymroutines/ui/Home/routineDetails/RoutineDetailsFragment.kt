@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineDetailsBinding
+import com.example.gymroutines.model.StaticImages
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +25,6 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
     private val navControllerHome get() = _navControllerHome!!
     private lateinit var equipmentAdapter: RoutineDetailEquipmentAdapter
     private lateinit var exercisesAdapter: RoutineDetailExercisesAdapter
-    private var routineId: String = arguments?.getString("id") ?: ""
     private val viewModel: RoutineDetailsViewModel by viewModels()
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -36,8 +35,6 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRoutineDetailsBinding.bind(view)
         _navControllerHome = view.findNavController()
-
-        routineId = arguments?.getString("id") ?: ""
 
         initUI()
     }
@@ -56,10 +53,10 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
     }
 
     private fun initToolbar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.toolbar.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.toolbar.setNavigationOnClickListener {
+            navControllerHome.navigateUp()
+        }
     }
 
     private fun initAdapters() {
@@ -70,22 +67,19 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
     }
 
     private fun initObservers() {
-        viewModel.getRoutineId(routineId).observe(viewLifecycleOwner) { routineDetail ->
-            //(requireActivity() as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
-            //(requireActivity() as AppCompatActivity).supportActionBar?.title = routineDetail.title
-
-            //binding.toolbar.title = routineDetail.title
+        viewModel.getRoutineId(arguments?.getString("id") ?: "").observe(viewLifecycleOwner) { routineDetail ->
+            binding.toolbar.title = routineDetail.title
             binding.tvRoutineLevel.text = routineDetail.level.value
             binding.tvDescription.text = routineDetail.description
             equipmentAdapter.submitList(routineDetail.equipment.toMutableList())
             exercisesAdapter.submitList(routineDetail.exercises.toMutableList())
             viewModel.isFavourite = routineDetail.isFavourite
-            changeFavouriteIcon(routineDetail.isFavourite)
+            setFavouriteIconState(routineDetail.isFavourite)
             when (routineDetail.imageURL) {
-                "gym1" -> binding.ivRoutineImage.setImageResource(R.drawable.gym1)
-                "gym2" -> binding.ivRoutineImage.setImageResource(R.drawable.gym2)
-                "gym3" -> binding.ivRoutineImage.setImageResource(R.drawable.gym3)
-                else -> binding.ivRoutineImage.setImageResource(R.drawable.gym4)
+                StaticImages.IMAGE_ROWING.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym1)
+                StaticImages.IMAGE_ABS.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym2)
+                StaticImages.IMAGE_BICEPS.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym3)
+                StaticImages.IMAGE_ROPES.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym4)
             }
         }
     }
@@ -95,12 +89,12 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
             viewModel.onFavouriteClicked()
 
             viewModel.isFavourite?.let { isFavourite ->
-                changeFavouriteIcon(isFavourite)
+                setFavouriteIconState(isFavourite)
             }
         }
     }
 
-    private fun changeFavouriteIcon(isFavourite: Boolean) {
+    private fun setFavouriteIconState(isFavourite: Boolean) {
         if (isFavourite) {
             binding.fabFavorite.setImageResource(R.drawable.favorite)
         } else {
