@@ -7,5 +7,7 @@ data class RoutinePreviewDto(
     val title: String = "",
     val durationMin: Int = 0,
     val level: String = "",
+    val equipment: List<String> = listOf(),
+    val muscles: List<String> = listOf(),
     val imageURL: String = ""
 )

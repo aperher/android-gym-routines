@@ -3,11 +3,9 @@ package com.example.gymroutines.data.routinesCatalog
 import com.example.gymroutines.data.Favorites
 import com.example.gymroutines.data.routinesCatalog.model.CatalogDto
 import com.example.gymroutines.data.routinesCatalog.model.RoutinePreviewDto
-import com.example.gymroutines.model.CatalogType
+import com.example.gymroutines.model.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -43,7 +41,8 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
             }
 
             Favorites.documentId = snapshot.documents[1].id
-            Favorites.favouriteRoutines = snapshot.documents[1].get(FIELD_FAVOURITES) as MutableList<String>
+            Favorites.favouriteRoutines =
+                snapshot.documents[1].get(FIELD_FAVOURITES) as MutableList<String>
 
             val catalogs = snapshot.toObjects(CatalogDto::class.java)
             trySend(catalogs)
@@ -76,6 +75,30 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
                 routines.add(routine!!)
             }
 
+            routines
+        }
+
+    override suspend fun getFilteredRoutines(filters: Map<FilterType, MutableList<String>>): Result<List<RoutinePreviewDto>> =
+        runCatching {
+            // Realizar filtrado por muscles equipment y level
+            val baseQuery: Query = fireStore.collection(COLLECTION_ROUTINES)
+            var query: Query = baseQuery
+
+            if (!filters[FilterType.Equipment].isNullOrEmpty()) {
+                val equipmentList = filters[FilterType.Equipment]!!.map { element -> Equipment.values().find { it.value == element }.toString() }
+                query = query.whereArrayContainsAny(FilterType.Equipment.toString().lowercase(), equipmentList)
+            }
+            if (!filters[FilterType.Muscles].isNullOrEmpty()) {
+                val musclesList = filters[FilterType.Muscles]!!.map { element -> Muscles.values().find { it.value == element }.toString() }
+                query = query.whereArrayContainsAny(FilterType.Muscles.toString().lowercase(), musclesList)
+            }
+            if (!filters[FilterType.Level].isNullOrEmpty()) {
+                val levelList = filters[FilterType.Level]!!.map { element -> Level.values().find { it.value == element }.toString() }
+                query = query.whereIn(FilterType.Level.toString().lowercase(), levelList)
+            }
+            val routines = query.get().await().documents.map {
+                it.toObject(RoutinePreviewDto::class.java)!!.apply { id = it.reference }
+            }
             routines
         }
 }

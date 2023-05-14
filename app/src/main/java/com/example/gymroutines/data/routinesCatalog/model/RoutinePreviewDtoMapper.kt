@@ -1,6 +1,7 @@
 package com.example.gymroutines.data.routinesCatalog.model
 
 import com.example.gymroutines.model.Level
+import com.example.gymroutines.model.Routine
 import com.example.gymroutines.model.RoutinePreview
 
 fun RoutinePreviewDto.toDomain() = RoutinePreview(

@@ -27,11 +27,11 @@ class ModalBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet) {
     }
 
     private fun initObservers() {
-        viewModel.title.observe(viewLifecycleOwner) {
+        viewModel.bsTitle.observe(viewLifecycleOwner) {
             binding.tvTitle.text = it
         }
 
-        viewModel.list.observe(viewLifecycleOwner) { list ->
+        viewModel.bsList.observe(viewLifecycleOwner) { list ->
             val adapter = ModalBottomSheetAdapter(list, viewModel.selectedItems) { filter ->
                 viewModel.addFilter(filter)
             }
@@ -47,7 +47,7 @@ class ModalBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet) {
 
     override fun dismiss() {
         super.dismiss()
-        //Hacer llamada de filtrado
+        viewModel.showFilteredRoutines()
         Log.d("ModalBottomSheet", "dismiss")
     }
 }

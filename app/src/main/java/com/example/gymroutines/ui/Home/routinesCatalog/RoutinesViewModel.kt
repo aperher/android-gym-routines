@@ -36,10 +36,10 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
     val selectedItems get() = bsSelectedItems[filterType] ?: emptyList()
 
     private var _bsTitle = MutableLiveData<String>()
-    val title: LiveData<String> get() = _bsTitle
+    val bsTitle: LiveData<String> get() = _bsTitle
 
     private var _bsList = MutableLiveData<List<String>>(emptyList())
-    val list: LiveData<List<String>> get() = _bsList
+    val bsList: LiveData<List<String>> get() = _bsList
 
     fun onRoutineClicked(routineId: String) {
         _goToRoutineDetails.value = Event(routineId)
@@ -81,6 +81,24 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
             bsSelectedItems[filterType]?.add(filter) ?: run {
                 bsSelectedItems[filterType] = mutableListOf(filter)
             }
+        }
+    }
+
+    fun showFilteredRoutines() {
+        for (filter in bsSelectedItems) {
+            if (filter.value.isEmpty()) {
+                bsSelectedItems.remove(filter.key)
+            }
+        }
+        if (bsSelectedItems.isEmpty()) {
+            return
+        }
+        viewModelScope.launch {
+            repository.getFilteredRoutines(bsSelectedItems.toMap()).fold(onSuccess = {
+                _routinesList.value = it
+            }, onFailure = {
+                TODO()
+            })
         }
     }
 
