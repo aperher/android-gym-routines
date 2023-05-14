@@ -11,7 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="Crunch"
+        tools:text="Crunch"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,12 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Sin equipamiento. Abdominales"
-        android:textSize="10sp"
+        tools:text="Sin equipamiento. Abdominales"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExerciseName"
-        tools:ignore="SmallSp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cbExercise"

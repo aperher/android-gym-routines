@@ -58,7 +58,7 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
 
         val tvSerieNumber = TextView(requireContext())
         tvSerieNumber.text = "Serie ${++serieCount}"
-        tvSerieNumber.textSize = 16f
+        tvSerieNumber.textSize = 14f
         tvSerieNumber.setTypeface(null, Typeface.BOLD)
         newLayout.addView(tvSerieNumber)
 

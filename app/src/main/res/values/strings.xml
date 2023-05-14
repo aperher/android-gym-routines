@@ -18,7 +18,7 @@
     <string name="cerrar_sesion">Cerrar sesion</string>
     <string name="publicar_rutina">Pública</string>
     <string name="check_imagen">check imagen</string>
-    <string name="anyade_otra_serie">Añade otra serie</string>
+    <string name="anyadir_serie">Añadir serie</string>
     <string name="repeticiones_serie">Repeticiones para esta serie</string>
     <string name="duracion">Duración</string>
 </resources>
