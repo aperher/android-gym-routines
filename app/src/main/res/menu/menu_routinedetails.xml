@@ -6,13 +6,5 @@
         android:title="@string/borrar_rutina"
         app:showAsAction="never"
         android:icon="@drawable/delete">
-
-    </item>
-    <item
-        android:id="@+id/editRoutine"
-        android:title="@string/editar_rutina"
-        app:showAsAction="never"
-        android:icon="@drawable/edit">
-
     </item>
 </menu>

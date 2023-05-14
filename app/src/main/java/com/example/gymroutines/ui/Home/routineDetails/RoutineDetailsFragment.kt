@@ -118,9 +118,6 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
             R.id.deleteRoutine -> {
                 DeleteRoutineDialogFragment(this).show(childFragmentManager, null); true
             }
-            R.id.editRoutine -> {
-                var i = "SI"; true
-            }
             else -> false
         }
 }
