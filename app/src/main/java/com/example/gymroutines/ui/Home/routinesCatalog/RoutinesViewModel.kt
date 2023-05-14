@@ -1,5 +1,6 @@
 package com.example.gymroutines.ui.Home.routinesCatalog
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.gymroutines.data.routinesCatalog.RoutinesCatalogRepository
 import com.example.gymroutines.model.*
@@ -32,7 +33,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
     //BottomSheet
 
     private lateinit var filterType: FilterType
-    private var bsSelectedItems : MutableMap<FilterType, MutableList<String>> = mutableMapOf()
+    private var bsSelectedItems: MutableMap<FilterType, MutableList<String>> = mutableMapOf()
     val selectedItems get() = bsSelectedItems[filterType] ?: emptyList()
 
     private var _bsTitle = MutableLiveData<String>()
@@ -77,6 +78,17 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         _goToBottomSheetFilter.value = Event(true)
     }
 
+    fun search(name: String) {
+        viewModelScope.launch {
+            Log.d("RoutinesViewModel", "search: $name")
+            repository.searchRoutines(name).fold(onSuccess = {
+                _routinesList.value = it
+            }, onFailure = {
+                exception.value = it
+            })
+        }
+    }
+
     fun addFilter(filter: String) {
         if (bsSelectedItems[filterType]?.contains(filter) == true) {
             bsSelectedItems[filterType]?.remove(filter)
@@ -100,7 +112,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
             repository.getFilteredRoutines(bsSelectedItems.toMap()).fold(onSuccess = {
                 _routinesList.value = it
             }, onFailure = {
-                TODO()
+                exception.value = it
             })
         }
     }
@@ -109,7 +121,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         _routinesList.value = null
     }
 
-    fun resetError(){
+    fun resetError() {
         exception.value = null
     }
 }

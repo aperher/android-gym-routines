@@ -42,4 +42,16 @@ class RoutinesCatalogRepositoryImpl @Inject constructor(private val dataSource: 
                 Result.failure(Exception("Error getting filtered routines"))
             }
         }
+
+    override suspend fun searchRoutines(title: String): Result<List<RoutinePreview>> {
+        dataSource.searchRoutines(title).let { result ->
+            return if (result.isSuccess) {
+                Result.success(result.getOrThrow().map { routinePreviewDto ->
+                    routinePreviewDto.toDomain()
+                })
+            } else {
+                Result.failure(Exception("Error searching routines"))
+            }
+        }
+    }
 }

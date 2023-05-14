@@ -1,7 +1,5 @@
 package com.example.gymroutines.ui.Home.profile
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,17 +12,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val repository: ProfileRepository, private val auth: AuthRepository) : ViewModel() {
+class ProfileViewModel @Inject constructor(
+    private val repository: ProfileRepository,
+    private val auth: AuthRepository
+) : ViewModel() {
     //Get user data to update UI
     private var _currentuser = MutableLiveData<User>()
     val user: LiveData<User> get() = _currentuser
-    private var _password = MutableLiveData<String>()
-    val password: LiveData<String> get() = _password
-    private var _repeatPassword = MutableLiveData<String>()
-    val repeatPassword: LiveData<String> get() = _repeatPassword
     private var _exception = MutableLiveData<Throwable?>(null)
     val exception get() = _exception
-
 
     init {
         getUser()
@@ -40,11 +36,11 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
         }
     }
 
-    fun updateUserData(username: String) : Boolean{
+    fun updateUserData(username: String): Boolean {
         var result = false
-        if(user.value != null && username != null){
-            viewModelScope.launch{
-                repository.updateUserName(username,user.value!!).fold(onSuccess = {
+        if (user.value != null && username != null) {
+            viewModelScope.launch {
+                repository.updateUserName(username, user.value!!).fold(onSuccess = {
                     result = true
                 }, onFailure = {
                     exception.value = it
@@ -54,18 +50,18 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
         return result
     }
 
-    fun updatedUserName() : String{
-        if(user.value != null){
+    fun updatedUserName(): String {
+        if (user.value != null) {
             return user.value!!.username
         }
         return ""
     }
 
-    fun closeSession(){
+    fun closeSession() {
         auth.logout()
     }
 
-    fun resetError(){
+    fun resetError() {
         exception.value = null
     }
 }

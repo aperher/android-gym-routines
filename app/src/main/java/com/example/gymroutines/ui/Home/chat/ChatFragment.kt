@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.chat
 
-
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
@@ -11,8 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentChatBinding
-import com.example.gymroutines.ui.Home.routinesCatalog.RoutinesCatalogAdapter
-import com.example.gymroutines.utils.dismissKeyboard
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.grpc.okhttp.internal.Platform.logger
@@ -25,7 +22,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private val binding get() = _binding!!
     private val viewModel: ChatViewModel by viewModels()
     private var _navControllerHome: NavController? = null
-    private val navControllerHome get() = _navControllerHome!!
     private lateinit var adapter: ChatAdapter
 
 
@@ -34,7 +30,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         _binding = FragmentChatBinding.bind(view)
         _navControllerHome = view.findNavController()
         initUI()
-
     }
 
     override fun onDestroy() {
@@ -57,9 +52,10 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         viewModel.isTextEmpty.observe(viewLifecycleOwner) {
             binding.btnSend.isEnabled = !it
         }
-        viewModel.exception.observe(viewLifecycleOwner){exception ->
-            if(exception != null){
-                Snackbar.make(requireView(),exception.message.toString(), Snackbar.LENGTH_SHORT).show()
+        viewModel.exception.observe(viewLifecycleOwner) { exception ->
+            if (exception != null) {
+                Snackbar.make(requireView(), exception.message.toString(), Snackbar.LENGTH_SHORT)
+                    .show()
                 viewModel.resetError()
             }
         }
@@ -69,14 +65,14 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         adapter = ChatAdapter()
         binding.chatRecyclerView.adapter = adapter
     }
+
     private fun initListeners() {
         binding.EtextMessage.addTextChangedListener(afterTextChanged = { text ->
             viewModel.setTextMessage(text.toString())
         })
 
         binding.btnSend.setOnClickListener {
-           viewModel.createMessage()
-            val text =""
+            viewModel.createMessage()
             binding.EtextMessage.text = Editable.Factory.getInstance().newEditable("")
         }
     }
