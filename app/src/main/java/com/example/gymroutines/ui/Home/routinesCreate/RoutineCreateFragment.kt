@@ -24,8 +24,6 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
     private val viewModel: RoutineCreateViewModel by activityViewModels()
     private lateinit var routineExercisesAdapter: RoutineExercisesAdapter
 
-    private val levels = arrayOf("Fácil", "Intermedio", "Avanzado")
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRoutineCreateBinding.bind(view)
@@ -110,9 +108,10 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
                 goToSeries(exercise)
             }
         }
-        viewModel.exception.observe(viewLifecycleOwner){exception ->
-            if(exception != null){
-                Snackbar.make(requireView(),exception.message.toString(), Snackbar.LENGTH_SHORT).show()
+        viewModel.exception.observe(viewLifecycleOwner) { exception ->
+            if (exception != null) {
+                Snackbar.make(requireView(), exception.message.toString(), Snackbar.LENGTH_SHORT)
+                    .show()
                 viewModel.resetError()
             }
         }

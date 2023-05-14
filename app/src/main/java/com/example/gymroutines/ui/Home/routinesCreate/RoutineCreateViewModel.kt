@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.routinesCreate
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.gymroutines.data.exercise.ExerciseRepository
 import com.example.gymroutines.data.routinesCreate.RoutinesCreateRepository
@@ -105,26 +104,24 @@ class RoutineCreateViewModel @Inject constructor(
     }
 
     private fun getRoutine(): Routine {
-
         val strings = listOf("gym1", "gym2", "gym3", "gym4")
-        val indiceAleatorio = Random.nextInt(strings.size)
+        val randomIndex = Random.nextInt(strings.size)
         return Routine(
             "",
             routineName.value!!,
             "Easy",
             routinePublic.value!!,
-            strings[indiceAleatorio],
+            strings[randomIndex],
             routineDescription.value!!,
             routineDuration.value!!.toInt(),
             0,
             addedExercises.value!!,
             addedExercises.value?.map { it.equipment }?.distinct() ?: listOf(),
             addedExercises.value?.map { it.primaryMuscles }?.distinct() ?: listOf(),
-
         )
     }
 
-    fun resetError(){
+    fun resetError() {
         exception.value = null
     }
 }

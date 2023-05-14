@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.routineDetails
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -17,7 +16,8 @@ class RoutineDetailExercisesAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(routineDetail: RoutineDetail.ExercisesDetail) {
             binding.tvExerciseName.text = routineDetail.name
-            binding.tvExerciseSeries.text = routineDetail.series.joinToString(separator = "x ")
+            binding.tvExerciseSeries.text =
+                routineDetail.series.joinToString(postfix = "x", separator = "x ")
         }
     }
 
