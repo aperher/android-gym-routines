@@ -41,7 +41,6 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
 
     private fun initUI() {
         initRoutineExercisesAdapter()
-        initSpinnerAdapter()
         initObservers()
         initListeners()
         loadView()
@@ -97,12 +96,6 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
         binding.textDescripcionRutina.setText(viewModel.routineDescription.value.toString())
         binding.switchPublishRoutine.isChecked = viewModel.routinePublic.value!!
         binding.textDuracion.setText(viewModel.routineDuration.value.toString())
-    }
-
-    private fun initSpinnerAdapter() {
-        //val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, levels)
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        //binding.spLevel.adapter = adapter
     }
 
     private fun initObservers() {

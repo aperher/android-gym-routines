@@ -39,8 +39,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="14dp"
-        android:paddingHorizontal="28dp">
+        android:paddingHorizontal="28dp"
+        android:paddingVertical="14dp">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
@@ -53,8 +53,8 @@
                 android:id="@+id/textNombreRutina"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre de la rutina"
                 android:layout_marginBottom="8dp"
+                android:hint="Nombre de la rutina"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -86,14 +86,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="m." />
-
-                <Spinner
-                    android:id="@+id/spLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1" />
 
                 <Switch
                     android:id="@+id/switchPublishRoutine"
