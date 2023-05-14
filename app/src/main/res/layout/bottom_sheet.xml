@@ -33,7 +33,7 @@
             android:layout_marginVertical="10dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/divider"
-            app:tint="#555555" />
+            app:tint="#959595" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -41,8 +41,7 @@
             android:layout_height="wrap_content"
             tools:text="Título"
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:textColor="@color/black" />
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/divider"

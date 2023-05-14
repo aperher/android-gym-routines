@@ -43,7 +43,6 @@ class ChatDataSourceImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun createMessage(text: String): Boolean = runCatching {
-        Platform.logger.log(Level.INFO, "dentro del datasoruce")
         val id = randomString(20)
         val message = Messages(userName, text, id, imageUrl)
         Platform.logger.log(Level.INFO, message.id.toString())

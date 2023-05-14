@@ -53,7 +53,6 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
     }
 
     private fun initToolbar() {
-        binding.toolbar.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         binding.toolbar.setNavigationOnClickListener {
             navControllerHome.navigateUp()
         }
@@ -67,21 +66,27 @@ class RoutineDetailsFragment : Fragment(R.layout.fragment_routine_details),
     }
 
     private fun initObservers() {
-        viewModel.getRoutineId(arguments?.getString("id") ?: "").observe(viewLifecycleOwner) { routineDetail ->
-            binding.toolbar.title = routineDetail.title
-            binding.tvRoutineLevel.text = routineDetail.level.value
-            binding.tvDescription.text = routineDetail.description
-            equipmentAdapter.submitList(routineDetail.equipment.toMutableList())
-            exercisesAdapter.submitList(routineDetail.exercises.toMutableList())
-            viewModel.isFavourite = routineDetail.isFavourite
-            setFavouriteIconState(routineDetail.isFavourite)
-            when (routineDetail.imageURL) {
-                StaticImages.IMAGE_ROWING.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym1)
-                StaticImages.IMAGE_ABS.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym2)
-                StaticImages.IMAGE_BICEPS.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym3)
-                StaticImages.IMAGE_ROPES.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym4)
+        viewModel.getRoutineId(arguments?.getString("id") ?: "")
+            .observe(viewLifecycleOwner) { routineDetail ->
+                binding.toolbar.title = routineDetail.title
+                if (viewModel.isAuthor(routineDetail.userId)) binding.toolbar.addMenuProvider(
+                    this@RoutineDetailsFragment,
+                    viewLifecycleOwner,
+                    Lifecycle.State.RESUMED
+                )
+                binding.tvRoutineLevel.text = routineDetail.level.value
+                binding.tvDescription.text = routineDetail.description
+                equipmentAdapter.submitList(routineDetail.equipment.toMutableList())
+                exercisesAdapter.submitList(routineDetail.exercises.toMutableList())
+                viewModel.isFavourite = routineDetail.isFavourite
+                setFavouriteIconState(routineDetail.isFavourite)
+                when (routineDetail.imageURL) {
+                    StaticImages.IMAGE_ROWING.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym1)
+                    StaticImages.IMAGE_ABS.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym2)
+                    StaticImages.IMAGE_BICEPS.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym3)
+                    StaticImages.IMAGE_ROPES.value -> binding.ivRoutineImage.setImageResource(R.drawable.gym4)
+                }
             }
-        }
     }
 
     private fun initListeners() {
