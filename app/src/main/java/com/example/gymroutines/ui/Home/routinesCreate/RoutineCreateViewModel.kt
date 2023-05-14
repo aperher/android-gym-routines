@@ -1,5 +1,6 @@
 package com.example.gymroutines.ui.Home.routinesCreate
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.gymroutines.data.exercise.ExerciseRepository
 import com.example.gymroutines.data.routinesCreate.RoutinesCreateRepository
@@ -70,7 +71,8 @@ class RoutineCreateViewModel @Inject constructor(
         viewModelScope.launch {
             exercisesRepository.getExercises().fold(onSuccess = {
                 _exercisesCatalog.value = it
-            }, onFailure = {})
+            }, onFailure = {
+            })
         }
     }
 
@@ -102,8 +104,7 @@ class RoutineCreateViewModel @Inject constructor(
     }
 
     private fun getRoutine(): Routine {
-        val equipment: List<String> = listOf();
-        addedExercises.value?.map { it.equipment }?.distinct()
+
         val strings = listOf("gym1", "gym2", "gym3", "gym4")
         val indiceAleatorio = Random.nextInt(strings.size)
         return Routine(
@@ -113,10 +114,12 @@ class RoutineCreateViewModel @Inject constructor(
             routinePublic.value!!,
             strings[indiceAleatorio],
             routineDescription.value!!,
-            120,
+            routineDuration.value!!.toInt(),
             0,
             addedExercises.value!!,
-            equipment
+            addedExercises.value?.map { it.equipment }?.distinct() ?: listOf(),
+            addedExercises.value?.map { it.primaryMuscles }?.distinct() ?: listOf(),
+
         )
     }
 }
