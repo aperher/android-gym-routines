@@ -1,8 +1,6 @@
 package com.example.gymroutines.data.profile
 
-import com.example.gymroutines.data.profile.model.toDomain
 import com.example.gymroutines.model.User
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -37,7 +35,7 @@ class ProfileRepositoryImpl @Inject constructor(val datasource: ProfileDataSourc
         return ImageUrl;
     }
 
-    override suspend fun updateUserName(userName: String, currentuser: User): Result<Boolean> {
-        return datasource.updateUserName(userName, currentuser)
+    override suspend fun updateUserName(userName: String, currentUser: User): Result<Boolean> {
+        return datasource.updateUserName(userName, currentUser)
     }
 }
