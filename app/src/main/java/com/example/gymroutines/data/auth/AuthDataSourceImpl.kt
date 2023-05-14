@@ -25,5 +25,6 @@ class AuthDataSourceImpl @Inject constructor(
     }.isSuccess
 
     override fun logout() = auth.signOut()
+
+    override fun getUser(): String = auth.currentUser?.email ?: ""
 }
-// Path: app\src\main\java\com\example\gymroutines\data\auth\AuthRepository.kt

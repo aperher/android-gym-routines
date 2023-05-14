@@ -1,40 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="7dp"
-    android:layout_marginVertical="4dp"
-    android:orientation="horizontal"
-    android:padding="3dp"
+    android:layout_marginVertical="6dp"
     android:background="@drawable/border">
-     <LinearLayout
-         android:layout_width="0dp"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"
-         android:orientation="vertical"
-         android:layout_gravity="start">
-         <TextView
-             android:id="@+id/tvExerciseName"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:gravity="start"
-             tools:text="Crunch"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toTopOf="parent" />
 
-         <TextView
-             android:id="@+id/tvExerciseSeries"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="8dp"
-             tools:text="12x 10x 8x"/>
-    </LinearLayout>
     <TextView
+        android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Cuadriceps"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Crunch" />
+
+    <TextView
+        android:id="@+id/tvExerciseSeries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvExerciseName"
+        app:layout_constraintTop_toBottomOf="@+id/tvExerciseName"
+        tools:text="12x 10x 8x" />
+
+    <TextView
+        android:id="@+id/tvMuscle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginEnd="5dp"/>
-</LinearLayout>
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cuadriceps" />
+</androidx.constraintlayout.widget.ConstraintLayout>

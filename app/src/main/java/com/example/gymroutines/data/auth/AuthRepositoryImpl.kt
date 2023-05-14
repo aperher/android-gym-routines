@@ -12,4 +12,6 @@ class AuthRepositoryImpl @Inject constructor(
         dataSource.login(email, password)
 
     override fun logout() = dataSource.logout()
+
+    override fun getUser(): String = dataSource.getUser()
 }

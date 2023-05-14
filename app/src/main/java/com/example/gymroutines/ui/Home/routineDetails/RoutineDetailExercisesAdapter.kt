@@ -17,7 +17,8 @@ class RoutineDetailExercisesAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(routineDetail: RoutineDetail.ExercisesDetail) {
             binding.tvExerciseName.text = routineDetail.name
-            //binding.tvExerciseReps.text = routineDetail.series
+            binding.tvExerciseSeries.text = routineDetail.series.joinToString(separator = "x ", postfix = "x")
+            binding.tvMuscle.text = routineDetail.primaryMuscles.value
         }
     }
 

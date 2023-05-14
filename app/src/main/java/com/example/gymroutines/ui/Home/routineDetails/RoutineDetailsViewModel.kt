@@ -1,7 +1,7 @@
 package com.example.gymroutines.ui.Home.routineDetails
 
-import android.util.Log
 import androidx.lifecycle.*
+import com.example.gymroutines.data.auth.AuthRepository
 import com.example.gymroutines.data.routinedatails.RoutineDetailRepository
 import com.example.gymroutines.model.RoutineDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,14 +9,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutineDetailsViewModel @Inject constructor(private val repository: RoutineDetailRepository) :
+class RoutineDetailsViewModel @Inject constructor(private val repository: RoutineDetailRepository, private val authRepository: AuthRepository) :
     ViewModel() {
 
     private var routineId : String? = null
-
     var isFavourite : Boolean? = null
     fun onFavouriteClicked() {
-        Log.d("RoutineDetailsViewModel", "$isFavourite")
         isFavourite?.let{ isFavourite ->
             if (isFavourite) {
                 repository.removeFavourite(routineId!!)
@@ -30,6 +28,8 @@ class RoutineDetailsViewModel @Inject constructor(private val repository: Routin
     fun deleteRoutine() {
         repository.deleteRoutine(routineId!!)
     }
+
+    fun isAuthor(routineUser: String) : Boolean = routineUser == authRepository.getUser()
 
     fun getRoutineId(idRoutine: String) : LiveData<RoutineDetail> {
         routineId = idRoutine
