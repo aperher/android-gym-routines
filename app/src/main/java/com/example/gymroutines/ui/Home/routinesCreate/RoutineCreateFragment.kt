@@ -43,14 +43,11 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
         initSpinnerAdapter()
         initObservers()
         initListeners()
-        binding.textNombreRutina.setText(viewModel.routineName.value.toString())
-        binding.textDescripcionRutina.setText(viewModel.routineDescription.value.toString())
-        binding.switchPublishRoutine.isChecked = viewModel.routinePublic.value!!
+        loadView()
     }
 
     private fun initListeners() {
         binding.btnAddExercise.setOnClickListener {
-            //viewModel.getExercises()
             navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
         }
         binding.btnGuardar.setOnClickListener {
@@ -77,6 +74,14 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
         binding.switchPublishRoutine.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setPublic(isChecked)
         }
+        binding.textDuracion.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setDuration(s.toString())
+            }
+        })
     }
 
     private fun initRoutineExercisesAdapter() {
@@ -84,6 +89,13 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
             viewModel.onRoutineExerciseClicked(exercise)
         }
         binding.rvRoutineExercises.adapter = routineExercisesAdapter
+    }
+
+    private fun loadView() {
+        binding.textNombreRutina.setText(viewModel.routineName.value.toString())
+        binding.textDescripcionRutina.setText(viewModel.routineDescription.value.toString())
+        binding.switchPublishRoutine.isChecked = viewModel.routinePublic.value!!
+        binding.textDuracion.setText(viewModel.routineDuration.value.toString())
     }
 
     private fun initSpinnerAdapter() {
@@ -106,11 +118,8 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
     }
 
     private fun goToSeries(exercise: RoutineExercisePreview) {
-        val bundle = Bundle().apply {
-            putString("exerciseName", exercise.name)
-            putString("exerciseEquipment", exercise.equipment)
-        }
-        navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseSeriesFragment, bundle)
+        viewModel.setActiveExercise(exercise)
+        navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseSeriesFragment)
     }
 
     private fun checkParameters(): Boolean {

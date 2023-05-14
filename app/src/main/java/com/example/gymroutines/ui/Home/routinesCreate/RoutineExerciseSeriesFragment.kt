@@ -21,8 +21,8 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
     private val navControllerHome get() = _navControllerHome!!
     private val viewModel: RoutineCreateViewModel by activityViewModels()
 
-    private var serieCount = 1
-    private var seriesList : List<Int> = listOf()
+    private var serieCount = 0
+    private var seriesList: MutableList<Int> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,20 +37,15 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
         _navControllerHome = null
     }
 
-    init {
-        // CARGAR INFO DEL EJERCICIO SELECCIONADO
-        binding.tvExerciseSeriesName.text = arguments?.getString("exerciseName") ?: ""
-        binding.tvExerciseInfo.text = arguments?.getString("exerciseEquipment") ?: ""
-    }
-
     private fun initListeners() {
-        binding.btnAddSerie.setOnClickListener {
-            addSerie()
-        }
+        binding.btnAddSerie.setOnClickListener { addSerie() }
         binding.btnSaveSeries.setOnClickListener {
             setSeries()
             navControllerHome.navigate(R.id.action_routineExerciseSeriesFragment_to_routineCreateFragment)
         }
+        binding.tvExerciseSeriesName.text = viewModel.activeExercise.value!!.name
+        binding.tvExerciseInfo.text =
+            viewModel.activeExercise.value!!.equipment + ". " + viewModel.activeExercise.value!!.primaryMuscles
     }
 
     private fun addSerie() {
@@ -69,18 +64,29 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
         newLayout.addView(tvSerieNumber)
 
         val textReps = TextInputEditText(requireContext())
+        textReps.tag = "textReps"
         textReps.layoutParams = LinearLayoutCompat.LayoutParams(
             LinearLayoutCompat.LayoutParams.MATCH_PARENT,
             LinearLayoutCompat.LayoutParams.WRAP_CONTENT
-        )
+        ).apply { leftMargin = 12 }
+        textReps.hint = getString(R.string.repeticiones_serie)
         textReps.inputType = InputType.TYPE_CLASS_NUMBER
         newLayout.addView(textReps)
     }
 
     private fun setSeries() {
+        for (i in 0 until binding.linearLayoutSeries.childCount) {
+            var linearLayoutChild = binding.linearLayoutSeries.getChildAt(i) as? LinearLayoutCompat
+            var textReps = linearLayoutChild?.getChildAt(1) as? TextInputEditText
+            val valor = textReps?.text.toString().toIntOrNull()
+            if (valor != null) {
+                seriesList.add(valor)
+            }
+        }
+
         viewModel.addedExercises.value!!.map { exercise ->
-            if (exercise.name == "") {
-               exercise.series = seriesList
+            if (exercise.name == viewModel.activeExercise.value!!.name) {
+                exercise.series = seriesList
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.routinesCreate
 
-
 import androidx.lifecycle.*
 import com.example.gymroutines.data.exercise.ExerciseRepository
 import com.example.gymroutines.data.routinesCreate.RoutinesCreateRepository
@@ -27,9 +26,14 @@ class RoutineCreateViewModel @Inject constructor(
     val routineDescription: LiveData<String> get() = _routineDescription
     private var _routinePublic = MutableLiveData<Boolean>(false)
     val routinePublic: LiveData<Boolean> get() = _routinePublic
+    private var _routineDuration = MutableLiveData<String>("")
+    val routineDuration: LiveData<String> get() = _routineDuration
 
     private var _addedExercises = MutableLiveData<List<RoutineExercisePreview>?>(null)
     val addedExercises: LiveData<List<RoutineExercisePreview>?> get() = _addedExercises
+
+    private var _activeExercise = MutableLiveData<RoutineExercisePreview>()
+    val activeExercise: LiveData<RoutineExercisePreview> get() = _activeExercise
 
     // Exercises
     //private var _addExercisesToRoutine = MutableLiveData<Event<String>>()
@@ -54,6 +58,14 @@ class RoutineCreateViewModel @Inject constructor(
         _routinePublic.value = isPublic
     }
 
+    fun setDuration(duration: String) {
+        _routineDuration.value = duration
+    }
+
+    fun setActiveExercise(exercise: RoutineExercisePreview) {
+        _activeExercise.value = exercise
+    }
+
     fun getExercises() {
         viewModelScope.launch {
             exercisesRepository.getExercises().fold(onSuccess = {
@@ -63,7 +75,6 @@ class RoutineCreateViewModel @Inject constructor(
     }
 
     fun createRoutine() {
-
         viewModelScope.launch {
             routineRepository.createRoutine(getRoutine())
         }
@@ -89,12 +100,13 @@ class RoutineCreateViewModel @Inject constructor(
     fun onRoutineExerciseClicked(exercise: RoutineExercisePreview) {
         _goToSeries.value = Event(exercise)
     }
-    fun getRoutine(): Routine {
-        val Equipment: List<String> = listOf();
+
+    private fun getRoutine(): Routine {
+        val equipment: List<String> = listOf();
         addedExercises.value?.map { it.equipment }?.distinct()
         val strings = listOf("gym1", "gym2", "gym3", "gym4")
         val indiceAleatorio = Random.nextInt(strings.size)
-        val routine = Routine(
+        return Routine(
             "",
             routineName.value!!,
             "Si",
@@ -104,9 +116,7 @@ class RoutineCreateViewModel @Inject constructor(
             120,
             0,
             addedExercises.value!!,
-            Equipment
+            equipment
         )
-        return routine
-
     }
 }
