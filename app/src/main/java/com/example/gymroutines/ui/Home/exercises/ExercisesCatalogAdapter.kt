@@ -2,14 +2,19 @@ package com.example.gymroutines.ui.Home.exercises
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymroutines.databinding.ExerciseItemBinding
 import com.example.gymroutines.model.Exercise
+import com.example.gymroutines.model.RoutineExercisePreview
 
-class ExercisesCatalogAdapter(private val onExerciseClicked: (exercise: Exercise) -> Unit) :
+
+class ExercisesCatalogAdapter(private val onExerciseClicked: (exercise: Exercise) -> Unit,
+                              private val addedExercisesToRoutine: List<RoutineExercisePreview>) :
     ListAdapter<Exercise, ExercisesCatalogAdapter.ViewHolder>(ExercisesDiff) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -44,14 +49,17 @@ class ExercisesCatalogAdapter(private val onExerciseClicked: (exercise: Exercise
                 if (position != RecyclerView.NO_POSITION) {
                     val exercise = getItem(position)
                     onExerciseClicked(exercise)
-                    //binding.cbExercise.isChecked = !binding.cbExercise.isChecked
+                    binding.cbExercise.isVisible = !binding.cbExercise.isVisible
                 }
             }
         }
 
         fun bind(exercise: Exercise) {
+            binding.cbExercise.isVisible = isAdded(exercise)
             binding.tvExerciseName.text = exercise.name
             binding.tvExerciseInfo.text = exercise.equipment + ". " + exercise.primaryMuscles
         }
     }
+    private fun isAdded(exercise: Exercise): Boolean = addedExercisesToRoutine.any { e -> e.name == exercise.name }
+
 }

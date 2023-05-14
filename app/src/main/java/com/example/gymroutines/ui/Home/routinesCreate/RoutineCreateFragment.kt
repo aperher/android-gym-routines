@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -22,7 +23,7 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
     private val binding get() = _binding!!
     private var _navControllerHome: NavController? = null
     private val navControllerHome get() = _navControllerHome!!
-    private val viewModel: RoutineCreateViewModel by viewModels()
+    private val viewModel: RoutineCreateViewModel by activityViewModels()
     private lateinit var routineExercisesAdapter: RoutineExercisesAdapter
 
     private val levels = arrayOf("Fácil", "Intermedio", "Avanzado")
