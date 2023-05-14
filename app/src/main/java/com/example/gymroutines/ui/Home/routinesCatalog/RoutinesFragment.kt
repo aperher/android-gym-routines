@@ -3,6 +3,7 @@ package com.example.gymroutines.ui.Home.routinesCatalog
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -112,6 +113,23 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
             chipLevel.setOnClickListener {
                 viewModel.openFilter(FilterType.Level)
             }
+        }
+
+        binding.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {viewModel.search(query) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+
+        binding.searchView.setOnCloseListener {
+            viewModel.showCatalog()
+            false
         }
 
         binding.ivArrowBack.setOnClickListener {

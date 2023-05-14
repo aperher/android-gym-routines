@@ -10,4 +10,6 @@ interface RoutinesCatalogRepository {
     fun getRoutinesCatalog(): Flow<List<Catalog>>
     suspend fun getRoutinesByCatalog(catalogTitle: CatalogType): Result<List<RoutinePreview>>
     suspend fun getFilteredRoutines(filters: Map<FilterType, MutableList<String>>): Result<List<RoutinePreview>>
+
+    suspend fun searchRoutines(title: String): Result<List<RoutinePreview>>
 }

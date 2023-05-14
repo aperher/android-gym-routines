@@ -101,4 +101,8 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
             }
             routines
         }
+
+    override suspend fun searchRoutines(title: String): Result<List<RoutinePreviewDto>> = runCatching {
+        fireStore.collection(COLLECTION_ROUTINES).whereEqualTo(FIELD_TITLE, title).get().await().toObjects(RoutinePreviewDto::class.java)
+    }
 }

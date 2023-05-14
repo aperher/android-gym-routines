@@ -10,4 +10,6 @@ interface RoutinesCatalogDataSource {
     fun getRoutinesCatalog(): Flow<List<CatalogDto>>
     suspend fun getRoutinesByCatalog(catalogTitle: CatalogType): Result<List<RoutinePreviewDto>>
     suspend fun getFilteredRoutines(filters: Map<FilterType, MutableList<String>>): Result<List<RoutinePreviewDto>>
+
+    suspend fun searchRoutines(title: String): Result<List<RoutinePreviewDto>>
 }
