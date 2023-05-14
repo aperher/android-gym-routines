@@ -54,6 +54,7 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
             if (checkParameters()) {
                 viewModel.createRoutine()
             }
+            navControllerHome.navigate(R.id.action_routineCreateFragment_to_routinesFragment)
         }
         binding.textNombreRutina.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
