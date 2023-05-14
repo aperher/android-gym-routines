@@ -62,19 +62,18 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun navigateToEdit(){
         val activityContext = requireActivity()
         val context = activityContext
-        Toast.makeText(context,"Editar perfil", Toast.LENGTH_SHORT).show()
         navControllerHome.navigate(R.id.action_profileFragment_to_editProfileFragment)
     }
 
     private fun closeSession(){
         viewModel.closeSession()
-        navControllerMain.navigate(R.id.action_homeFragment_to_loginFragment)
+        val navController = requireActivity().findNavController(R.id.navHostFragment)
+        navController.navigate(R.id.action_homeFragment_to_loginFragment)
     }
 
     override fun onResume(){
         super.onResume()
         binding.profileName.setText(viewModel.updatedUserName())
-        Toast.makeText(context,"Editar perfil resume", Toast.LENGTH_SHORT).show()
     }
 
     private fun setImage() {

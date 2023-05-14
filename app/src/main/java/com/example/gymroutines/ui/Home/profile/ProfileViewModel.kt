@@ -22,6 +22,8 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
     val password: LiveData<String> get() = _password
     private var _repeatPassword = MutableLiveData<String>()
     val repeatPassword: LiveData<String> get() = _repeatPassword
+    private var _exception = MutableLiveData<Throwable?>(null)
+    val exception get() = _exception
 
 
     init {
@@ -33,7 +35,7 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
             repository.getUser().fold(onSuccess = {
                 _currentuser.value = it
             }, onFailure = {
-                TODO()
+                exception.value = it
             })
         }
     }
@@ -45,7 +47,7 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
                 repository.updateUserName(username,user.value!!).fold(onSuccess = {
                     result = true
                 }, onFailure = {
-                    result = false
+                    exception.value = it
                 })
             }
         }
@@ -61,5 +63,9 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
 
     fun closeSession(){
         auth.logout()
+    }
+
+    fun resetError(){
+        exception.value = null
     }
 }
