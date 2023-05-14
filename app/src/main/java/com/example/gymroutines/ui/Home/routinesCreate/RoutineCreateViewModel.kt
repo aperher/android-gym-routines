@@ -17,8 +17,8 @@ class RoutineCreateViewModel @Inject constructor(
 ) :
     ViewModel() {
     // Routine
-    private var _goToExercise = MutableLiveData<Event<String>>()
-    val goToExercise: LiveData<Event<String>> get() = _goToExercise
+    private var _goToSeries = MutableLiveData<Event<RoutineExercisePreview>>()
+    val goToSeries: LiveData<Event<RoutineExercisePreview>> get() = _goToSeries
 
     private var _routineName = MutableLiveData<String>("")
     val routineName: LiveData<String> get() = _routineName
@@ -89,10 +89,9 @@ class RoutineCreateViewModel @Inject constructor(
             _addedExercises.value =
                 _addedExercises.value.orEmpty().filter { it.name != exercise.name }
         }
-
     }
 
     fun onRoutineExerciseClicked(exercise: RoutineExercisePreview) {
-        TODO()
+        _goToSeries.value = Event(exercise)
     }
 }
