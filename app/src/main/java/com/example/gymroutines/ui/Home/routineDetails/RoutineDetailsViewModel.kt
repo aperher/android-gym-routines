@@ -14,6 +14,8 @@ class RoutineDetailsViewModel @Inject constructor(private val repository: Routin
 
     private var routineId : String? = null
     var isFavourite : Boolean? = null
+    private var _exception = MutableLiveData<Throwable?>(null)
+    val exception get() = _exception
     fun onFavouriteClicked() {
         isFavourite?.let{ isFavourite ->
             if (isFavourite) {
@@ -40,6 +42,10 @@ class RoutineDetailsViewModel @Inject constructor(private val repository: Routin
             }
         }
         return routineFlow.asLiveData()
+    }
+
+    fun resetError(){
+        exception.value = null
     }
 
 }

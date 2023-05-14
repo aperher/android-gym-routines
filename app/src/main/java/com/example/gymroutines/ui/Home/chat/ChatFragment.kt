@@ -13,6 +13,7 @@ import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentChatBinding
 import com.example.gymroutines.ui.Home.routinesCatalog.RoutinesCatalogAdapter
 import com.example.gymroutines.utils.dismissKeyboard
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.grpc.okhttp.internal.Platform.logger
 import java.util.logging.Level
@@ -56,7 +57,12 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         viewModel.isTextEmpty.observe(viewLifecycleOwner) {
             binding.btnSend.isEnabled = !it
         }
-
+        viewModel.exception.observe(viewLifecycleOwner){exception ->
+            if(exception != null){
+                Snackbar.make(requireView(),exception.message.toString(), Snackbar.LENGTH_SHORT).show()
+                viewModel.resetError()
+            }
+        }
     }
 
     private fun initAdapter() {

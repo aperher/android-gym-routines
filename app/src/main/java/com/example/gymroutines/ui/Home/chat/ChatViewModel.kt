@@ -21,6 +21,9 @@ class ChatViewModel @Inject constructor(private val repository: ChatRepository, 
     val isTextEmpty: LiveData<Boolean>
     get() = _isTextEmpty
 
+    private var _exception = MutableLiveData<Throwable?>(null)
+    val exception get() = _exception
+
 
     fun setTextMessage(text: String) {
         _textMessage.value = text
@@ -30,6 +33,10 @@ class ChatViewModel @Inject constructor(private val repository: ChatRepository, 
     fun createMessage() {
         val cacahuetes = repository.createMessage(_textMessage.value!!)
         Platform.logger.log(Level.INFO, cacahuetes.toString())
+    }
+
+    fun resetError(){
+        exception.value = null
     }
 
 }

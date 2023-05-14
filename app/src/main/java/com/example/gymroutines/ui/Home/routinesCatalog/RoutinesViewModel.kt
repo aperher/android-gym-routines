@@ -41,6 +41,9 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
     private var _bsList = MutableLiveData<List<String>>(emptyList())
     val list: LiveData<List<String>> get() = _bsList
 
+    private var _exception = MutableLiveData<Throwable?>(null)
+    val exception get() = _exception
+
     fun onRoutineClicked(routineId: String) {
         _goToRoutineDetails.value = Event(routineId)
     }
@@ -50,7 +53,7 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
             repository.getRoutinesByCatalog(catalogTitle).fold(onSuccess = {
                 _routinesList.value = it
             }, onFailure = {
-                TODO()
+                exception.value = it
             })
         }
     }
@@ -86,5 +89,9 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
 
     fun showCatalog() {
         _routinesList.value = null
+    }
+
+    fun resetError(){
+        exception.value = null
     }
 }
