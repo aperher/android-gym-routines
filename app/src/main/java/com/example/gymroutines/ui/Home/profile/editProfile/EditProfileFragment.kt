@@ -12,6 +12,7 @@ import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentEditProfileBinding
 import com.example.gymroutines.ui.Home.profile.ProfileViewModel
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.snackbar.Snackbar
 
 class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
     private var _binding: FragmentEditProfileBinding? = null
@@ -31,27 +32,29 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
         initObservers()
         initListeners()
         setImage()
-
+        binding.profileNameText.setText(viewModel.user.value?.username)
     }
 
     private fun initObservers(){
-
+        viewModel.exception.observe(viewLifecycleOwner){exception ->
+            if(exception != null){
+                Snackbar.make(requireView(),exception.message.toString(),Snackbar.LENGTH_SHORT).show()
+                viewModel.resetError()
+            }
+        }
     }
 
     private fun initListeners(){
         val editProfilePhotoButton = binding.editProfilePhotoButton//view.findViewById<FloatingActionButton>(R.id.editProfilePhotoButton)
         editProfilePhotoButton.setOnClickListener{
-            Toast.makeText(context,"Edit Photo", Toast.LENGTH_SHORT).show()
+
         }
-        //Set listener for savebutton
         val saveButton = binding.saveButton//view.findViewById<Button>(R.id.saveButton)
         saveButton.setOnClickListener{
             saveChangedData()
         }
-        //Set listener for cancelButton
         val cancelButton = binding.cancelButton//view.findViewById<Button>(R.id.cancelButton)
         cancelButton.setOnClickListener {
-            Toast.makeText(context,"Cancel", Toast.LENGTH_SHORT).show()
             navControllerHome?.popBackStack()
         }
     }
@@ -59,11 +62,9 @@ class EditProfileFragment: Fragment(R.layout.fragment_edit_profile) {
         var result = false
         result = viewModel.updateUserData(binding.profileNameText.text.toString())
         navControllerHome?.popBackStack()
-        if(result){
-            Toast.makeText(context,"Actualizado con exito", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(context,"Error en la actualizacion", Toast.LENGTH_SHORT).show()
-        }
+        /*if(!result){
+            Snackbar.make(requireView(),"Ha ocurrido un error",Snackbar.LENGTH_SHORT).show()
+        }*/
     }
     private fun setImage() {
         when(viewModel.user.value!!.imageUrl){

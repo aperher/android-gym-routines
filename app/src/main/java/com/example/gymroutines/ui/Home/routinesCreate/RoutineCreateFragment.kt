@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineCreateBinding
 import com.example.gymroutines.model.RoutineExercisePreview
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -113,6 +114,12 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
         viewModel.goToSeries.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { exercise ->
                 goToSeries(exercise)
+            }
+        }
+        viewModel.exception.observe(viewLifecycleOwner){exception ->
+            if(exception != null){
+                Snackbar.make(requireView(),exception.message.toString(), Snackbar.LENGTH_SHORT).show()
+                viewModel.resetError()
             }
         }
     }

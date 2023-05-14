@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentCatalogRoutinesBinding
 import com.example.gymroutines.model.FilterType
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -90,6 +91,12 @@ class RoutinesFragment : Fragment(R.layout.fragment_catalog_routines) {
                 binding.ivArrowBack.visibility = View.GONE
                 binding.recyclerView.adapter = catalogAdapter
                 catalogAdapter.submitList(viewModel.routinesCatalog.value)
+            }
+        }
+        viewModel.exception.observe(viewLifecycleOwner){exception ->
+            if(exception != null){
+                Snackbar.make(requireView(),exception.message.toString(), Snackbar.LENGTH_SHORT).show()
+                viewModel.resetError()
             }
         }
     }

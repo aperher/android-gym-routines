@@ -43,6 +43,9 @@ class RoutineCreateViewModel @Inject constructor(
     private var _exercisesCatalog = MutableLiveData<List<Exercise>>()
     val exercisesCatalog: LiveData<List<Exercise>> get() = _exercisesCatalog
 
+    private var _exception = MutableLiveData<Throwable?>(null)
+    val exception get() = _exception
+
     init {
         getExercises()
     }
@@ -72,6 +75,7 @@ class RoutineCreateViewModel @Inject constructor(
             exercisesRepository.getExercises().fold(onSuccess = {
                 _exercisesCatalog.value = it
             }, onFailure = {
+                exception.value = it
             })
         }
     }
@@ -121,5 +125,9 @@ class RoutineCreateViewModel @Inject constructor(
             addedExercises.value?.map { it.primaryMuscles }?.distinct() ?: listOf(),
 
         )
+    }
+
+    fun resetError(){
+        exception.value = null
     }
 }
