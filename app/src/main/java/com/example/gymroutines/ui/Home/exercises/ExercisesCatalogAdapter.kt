@@ -1,5 +1,6 @@
 package com.example.gymroutines.ui.Home.exercises
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -52,10 +53,11 @@ class ExercisesCatalogAdapter(private val onExerciseClicked: (exercise: Exercise
                 }
             }
         }
+        @SuppressLint("SetTextI18n")
         fun bind(exercise: Exercise) {
             binding.cbExercise.isVisible = isAdded(exercise)
             binding.tvExerciseName.text = exercise.name
-            binding.tvExerciseInfo.text = exercise.equipment + ". " + exercise.primaryMuscles
+            binding.tvExerciseInfo.text = exercise.equipment.value + ". " + exercise.primaryMuscles.value
         }
     }
     private fun isAdded(exercise: Exercise): Boolean = addedExercisesToRoutine.any { e -> e.name == exercise.name }

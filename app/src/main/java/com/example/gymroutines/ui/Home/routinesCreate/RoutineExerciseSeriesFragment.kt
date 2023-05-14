@@ -44,8 +44,7 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
             navControllerHome.navigate(R.id.action_routineExerciseSeriesFragment_to_routineCreateFragment)
         }
         binding.tvExerciseSeriesName.text = viewModel.activeExercise.value!!.name
-        binding.tvExerciseInfo.text =
-            viewModel.activeExercise.value!!.equipment + ". " + viewModel.activeExercise.value!!.primaryMuscles
+        binding.tvExerciseInfo.text = viewModel.activeExercise.value!!.equipment.value + ". " + viewModel.activeExercise.value!!.primaryMuscles.value
     }
 
     private fun addSerie() {

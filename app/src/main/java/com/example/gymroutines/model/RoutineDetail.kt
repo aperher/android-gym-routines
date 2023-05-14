@@ -14,6 +14,7 @@ data class RoutineDetail(
     var isFavourite: Boolean = false,
     var exercises: List<ExercisesDetail> = listOf(),
     var equipment: List<Equipment> = listOf(),
+    var muscles: List<Muscles> = listOf(),
 ) {
 
     data class ExercisesDetail(

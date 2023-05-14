@@ -10,5 +10,6 @@ data class Routine(
     var durationMin : Int = 0,
     var popularity: Int = 0,
     var exercises: List<RoutineExercisePreview> = listOf(),
-    var equipment: List<String> = listOf(),
+    var equipment: List<Equipment> = listOf(),
+    var muscles: List<Muscles> = listOf(),
 )
