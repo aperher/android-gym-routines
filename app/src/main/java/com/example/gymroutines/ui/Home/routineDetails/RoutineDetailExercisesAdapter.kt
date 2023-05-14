@@ -17,8 +17,7 @@ class RoutineDetailExercisesAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(routineDetail: RoutineDetail.ExercisesDetail) {
             binding.tvExerciseName.text = routineDetail.name
-            binding.tvExerciseSeries.text = routineDetail.series.joinToString(separator = "x ", postfix = "x")
-            binding.tvMuscle.text = routineDetail.primaryMuscles.value
+            binding.tvExerciseSeries.text = routineDetail.series.joinToString(separator = "x ")
         }
     }
 
@@ -38,16 +37,12 @@ class RoutineDetailExercisesAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoutineExercisesViewHolder {
         return RoutineExercisesViewHolder(
             ExercisesDetailItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
-
     override fun onBindViewHolder(holder: RoutineExercisesViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-
 }

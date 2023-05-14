@@ -5,5 +5,5 @@ data class RoutineExercisePreview(
     val equipment: String = "",
     val primaryMuscles: String = "",
     val secundaryMuscles: List<String> = listOf(),
-    val series: List<Int> = listOf()
+    var series: List<Int> = listOf()
 )

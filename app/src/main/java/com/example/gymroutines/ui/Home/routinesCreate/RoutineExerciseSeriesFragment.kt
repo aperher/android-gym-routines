@@ -1,6 +1,5 @@
 package com.example.gymroutines.ui.Home.routinesCreate
 
-import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.InputType
@@ -12,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
-import com.example.gymroutines.databinding.FragmentCatalogRoutinesBinding
 import com.example.gymroutines.databinding.FragmentExerciseSeriesBinding
 import com.google.android.material.textfield.TextInputEditText
 
@@ -24,6 +22,7 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
     private val viewModel: RoutineCreateViewModel by activityViewModels()
 
     private var serieCount = 1
+    private var seriesList : List<Int> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,8 +39,8 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
 
     init {
         // CARGAR INFO DEL EJERCICIO SELECCIONADO
-        //binding.tvExerciseSeriesName.text = viewModel.exerciseName
-        //binding.tvExerciseInfo.text = viewModel.exerciseInfo
+        binding.tvExerciseSeriesName.text = arguments?.getString("exerciseName") ?: ""
+        binding.tvExerciseInfo.text = arguments?.getString("exerciseEquipment") ?: ""
     }
 
     private fun initListeners() {
@@ -49,6 +48,7 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
             addSerie()
         }
         binding.btnSaveSeries.setOnClickListener {
+            setSeries()
             navControllerHome.navigate(R.id.action_routineExerciseSeriesFragment_to_routineCreateFragment)
         }
     }
@@ -75,5 +75,13 @@ class RoutineExerciseSeriesFragment : Fragment(R.layout.fragment_exercise_series
         )
         textReps.inputType = InputType.TYPE_CLASS_NUMBER
         newLayout.addView(textReps)
+    }
+
+    private fun setSeries() {
+        viewModel.addedExercises.value!!.map { exercise ->
+            if (exercise.name == "") {
+               exercise.series = seriesList
+            }
+        }
     }
 }

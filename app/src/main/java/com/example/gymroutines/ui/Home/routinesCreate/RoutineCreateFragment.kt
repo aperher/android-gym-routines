@@ -5,14 +5,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineCreateBinding
-import com.example.gymroutines.model.Exercise
 import com.example.gymroutines.model.RoutineExercisePreview
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -108,7 +106,11 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
     }
 
     private fun goToSeries(exercise: RoutineExercisePreview) {
-        navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseSeriesFragment)
+        val bundle = Bundle().apply {
+            putString("exerciseName", exercise.name)
+            putString("exerciseEquipment", exercise.equipment)
+        }
+        navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseSeriesFragment, bundle)
     }
 
     private fun checkParameters(): Boolean {

@@ -41,7 +41,7 @@ class RoutineExercisesAdapter(private val onRoutineExerciseClicked: (exercise: R
 
         fun bind(exercise: RoutineExercisePreview) {
             binding.tvExerciseName.text = exercise.name
-            binding.tvExerciseSeries.text = exercise.series.toString()
+            binding.tvExerciseSeries.text = exercise.series.joinToString(separator = "x ")
         }
     }
 
