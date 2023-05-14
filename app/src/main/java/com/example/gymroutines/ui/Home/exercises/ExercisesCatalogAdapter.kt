@@ -40,7 +40,6 @@ class ExercisesCatalogAdapter(private val onExerciseClicked: (exercise: Exercise
             return oldItem == newItem
         }
     }
-
     inner class ViewHolder(private val binding: ExerciseItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
@@ -53,7 +52,6 @@ class ExercisesCatalogAdapter(private val onExerciseClicked: (exercise: Exercise
                 }
             }
         }
-
         fun bind(exercise: Exercise) {
             binding.cbExercise.isVisible = isAdded(exercise)
             binding.tvExerciseName.text = exercise.name

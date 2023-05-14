@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
@@ -52,14 +51,6 @@ class ExercisesFragment : Fragment(R.layout.fragment_catalog_exercises) {
         viewModel.exercisesCatalog.observe(viewLifecycleOwner) {
             adapter.submitList(it.toMutableList())
         }
-        //viewModel.addExercisesToRoutine.observe(viewLifecycleOwner) {
-        //    addExercisesToRoutine()
-        // pasar ejercicios seleccionados a CreateRoutine
-        //}
-    }
-
-    private fun addExercisesToRoutine() {
-        // devolver lista de ejercicios seleccionados
     }
 
     private fun initListeners() {

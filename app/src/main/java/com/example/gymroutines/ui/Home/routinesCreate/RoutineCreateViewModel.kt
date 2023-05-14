@@ -1,6 +1,6 @@
 package com.example.gymroutines.ui.Home.routinesCreate
 
-import android.util.Log
+
 import androidx.lifecycle.*
 import com.example.gymroutines.data.exercise.ExerciseRepository
 import com.example.gymroutines.data.routinesCreate.RoutinesCreateRepository
@@ -41,9 +41,8 @@ class RoutineCreateViewModel @Inject constructor(
         getExercises()
     }
 
-    fun setName(aroutineName: String) {
-        _routineName.value = aroutineName
-        Log.d("nombre rutina", routineName.value.toString())
+    fun setName(routineName: String) {
+        _routineName.value = routineName
     }
 
     fun setDescription(description: String) {
@@ -62,7 +61,14 @@ class RoutineCreateViewModel @Inject constructor(
         }
     }
 
-    fun createRoutine(routine: Routine) {
+    fun createRoutine() {
+        val routine = Routine(
+            "",
+            routinePublic.value!!,
+            routineName.value!!,
+            addedExercises.value!!,
+            routineDescription.value!!
+        )
         viewModelScope.launch {
             routineRepository.createRoutine(routine)
         }
@@ -83,10 +89,10 @@ class RoutineCreateViewModel @Inject constructor(
             _addedExercises.value =
                 _addedExercises.value.orEmpty().filter { it.name != exercise.name }
         }
-        Log.d("lista ejs desde click", addedExercises.value.toString())
+
     }
 
     fun onRoutineExerciseClicked(exercise: RoutineExercisePreview) {
-        //Log.d("minifluzi", exercise.name + "chizfluzi")
+        TODO()
     }
 }

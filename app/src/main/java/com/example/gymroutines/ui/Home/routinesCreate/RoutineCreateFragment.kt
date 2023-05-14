@@ -5,16 +5,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineCreateBinding
-import com.example.gymroutines.model.Routine
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,14 +54,10 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
             navControllerHome.navigate(R.id.action_routineCreateFragment_to_exercisesFragment)
         }
         binding.btnGuardar.setOnClickListener {
-            val routine = Routine(
-                "",
-                binding.switchPublishRoutine.isChecked,
-                binding.textNombreRutina.text.toString(),
-                viewModel.addedExercises.value!!,
-                binding.textDescripcionRutina.text.toString()
-            )
-            viewModel.createRoutine(routine)
+            if (checkParameters()) {
+                viewModel.createRoutine()
+            }
+
         }
         binding.textNombreRutina.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -105,7 +98,6 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
             if (it != null) {
                 routineExercisesAdapter.submitList(it)
             }
-            Log.d("lista ejs añadidos", it.toString())
         }
     }
 
@@ -113,4 +105,18 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
         val bundle = bundleOf("id" to exerciseId)
         //navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseDetails, bundle)
     }
+
+    private fun checkParameters(): Boolean {
+        if (viewModel.routineName.value == "") {
+            Log.d("nombre", "vacia")
+            return false
+        } else if (viewModel.routineDescription.value == "") {
+            Log.d("descripcion", "vacia")
+            return false
+        } else if (viewModel.addedExercises.value == null) {
+            Log.d("ejercicos", "vacia")
+            return false
+        } else return true
+    }
 }
+
