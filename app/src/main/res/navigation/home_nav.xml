@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_routineCreateFragment_to_exercisesFragment"
             app:destination="@id/exercisesFragment" />
+        <action
+            android:id="@+id/action_routineCreateFragment_to_routineExerciseSeriesFragment"
+            app:destination="@id/routineExerciseSeriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/exercisesFragment"
@@ -67,4 +70,12 @@
         android:name="com.example.gymroutines.ui.Home.routinesCatalog.ModalBottomSheet"
         android:label="ModalBottomSheet"
         tools:layout="@layout/bottom_sheet"/>
+    <fragment
+        android:id="@+id/routineExerciseSeriesFragment"
+        android:name="com.example.gymroutines.ui.Home.routinesCreate.RoutineExerciseSeriesFragment"
+        android:label="RoutineExerciseSeriesFragment" >
+        <action
+            android:id="@+id/action_routineExerciseSeriesFragment_to_routineCreateFragment"
+            app:destination="@id/routineCreateFragment" />
+    </fragment>
 </navigation>

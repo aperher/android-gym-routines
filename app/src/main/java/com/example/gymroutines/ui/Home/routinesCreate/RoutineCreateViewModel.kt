@@ -9,6 +9,7 @@ import com.example.gymroutines.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class RoutineCreateViewModel @Inject constructor(
@@ -17,8 +18,8 @@ class RoutineCreateViewModel @Inject constructor(
 ) :
     ViewModel() {
     // Routine
-    private var _goToExercise = MutableLiveData<Event<String>>()
-    val goToExercise: LiveData<Event<String>> get() = _goToExercise
+    private var _goToSeries = MutableLiveData<Event<RoutineExercisePreview>>()
+    val goToSeries: LiveData<Event<RoutineExercisePreview>> get() = _goToSeries
 
     private var _routineName = MutableLiveData<String>("")
     val routineName: LiveData<String> get() = _routineName
@@ -62,15 +63,9 @@ class RoutineCreateViewModel @Inject constructor(
     }
 
     fun createRoutine() {
-        val routine = Routine(
-            "",
-            routinePublic.value!!,
-            routineName.value!!,
-            addedExercises.value!!,
-            routineDescription.value!!
-        )
+
         viewModelScope.launch {
-            routineRepository.createRoutine(routine)
+            routineRepository.createRoutine(getRoutine())
         }
     }
 
@@ -89,10 +84,29 @@ class RoutineCreateViewModel @Inject constructor(
             _addedExercises.value =
                 _addedExercises.value.orEmpty().filter { it.name != exercise.name }
         }
-
     }
 
     fun onRoutineExerciseClicked(exercise: RoutineExercisePreview) {
-        TODO()
+        _goToSeries.value = Event(exercise)
+    }
+    fun getRoutine(): Routine {
+        val Equipment: List<String> = listOf();
+        addedExercises.value?.map { it.equipment }?.distinct()
+        val strings = listOf("gym1", "gym2", "gym3", "gym4")
+        val indiceAleatorio = Random.nextInt(strings.size)
+        val routine = Routine(
+            "",
+            routineName.value!!,
+            "Si",
+            routinePublic.value!!,
+            strings[indiceAleatorio],
+            routineDescription.value!!,
+            120,
+            0,
+            addedExercises.value!!,
+            Equipment
+        )
+        return routine
+
     }
 }

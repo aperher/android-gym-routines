@@ -13,8 +13,7 @@ class RoutinesCreateDataSourceImpl @Inject constructor(
 ) : RoutinesCreateDataSource {
     override suspend fun createRoutine(routine: Routine): Boolean = runCatching {
         val userId = firebaseAuth.currentUser?.email!!
-        routine.userId = userId
+         routine.userId = userId
         firestore.collection("routines").add(routine).await()
     }.isSuccess
-
-}
+    }

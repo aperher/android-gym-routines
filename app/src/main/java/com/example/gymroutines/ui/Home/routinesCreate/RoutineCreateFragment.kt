@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.gymroutines.R
 import com.example.gymroutines.databinding.FragmentRoutineCreateBinding
+import com.example.gymroutines.model.Exercise
+import com.example.gymroutines.model.RoutineExercisePreview
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,7 +59,6 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
             if (checkParameters()) {
                 viewModel.createRoutine()
             }
-
         }
         binding.textNombreRutina.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -99,11 +100,15 @@ class RoutineCreateFragment : Fragment(R.layout.fragment_routine_create) {
                 routineExercisesAdapter.submitList(it)
             }
         }
+        viewModel.goToSeries.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { exercise ->
+                goToSeries(exercise)
+            }
+        }
     }
 
-    private fun goToExerciseDetails(exerciseId: String) {
-        val bundle = bundleOf("id" to exerciseId)
-        //navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseDetails, bundle)
+    private fun goToSeries(exercise: RoutineExercisePreview) {
+        navControllerHome.navigate(R.id.action_routineCreateFragment_to_routineExerciseSeriesFragment)
     }
 
     private fun checkParameters(): Boolean {
