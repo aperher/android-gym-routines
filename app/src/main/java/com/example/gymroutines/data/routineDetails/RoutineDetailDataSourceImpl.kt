@@ -17,6 +17,11 @@ class RoutineDetailDataSourceImpl @Inject constructor(
 
     private val COLLECTION_ROUTINES = "routines"
     private val COLLECTION_CATALOG = "routinesCatalogs"
+
+    /**
+     * Método para añadir una rutina de favoritos
+     * @param idRoutine El id de la rutina a a añadir en favoritos.
+     */
     override fun addFavourite(idRoutine: String) {
         fireStore.collection(COLLECTION_CATALOG).document(Favorites.documentId)
             .update("favourites", FieldValue.arrayUnion(idRoutine))
@@ -25,6 +30,10 @@ class RoutineDetailDataSourceImpl @Inject constructor(
         )
     }
 
+    /**
+     * Método para borrar una rutina de favoritos
+     * @param idRoutine El id de la rutina a borrar de favoritos.
+     */
     override fun removeFavourite(idRoutine: String) {
         fireStore.collection(COLLECTION_CATALOG).document(Favorites.documentId)
             .update("favourites", FieldValue.arrayRemove(idRoutine))
@@ -33,10 +42,19 @@ class RoutineDetailDataSourceImpl @Inject constructor(
         )
     }
 
+    /**
+     * Metodo para borrar una rutina de BD en la colleción de las rutinas y eliminarla de los catálogos necesarios
+     * @param idRoutine El id de la rutina a borrar.
+     */
     override fun deleteRoutine(idRoutine: String) {
         fireStore.collection(COLLECTION_ROUTINES).document(idRoutine).delete()
     }
 
+    /**
+     * Método para obtener una rutina de la BD en funcion de su ID
+     * @param idRoutine El id de la rutina a obtener.
+     * return Flow<RoutineDetail> con la rutina obtenida.
+     */
     override fun getRoutine(idRoutine: String): Flow<RoutineDetail> = callbackFlow {
         val query = fireStore.collection(COLLECTION_ROUTINES).document(idRoutine)
         val registration = query.addSnapshotListener { snapshot, exception ->
