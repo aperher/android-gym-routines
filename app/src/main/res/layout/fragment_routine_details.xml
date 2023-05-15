@@ -34,9 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.ScrollingActivity.PopupOverlay"
                 app:navigationIcon="@drawable/arrow_back"
-                tools:title="Nombre rutina" />
+                app:popupTheme="@style/Theme.ScrollingActivity.PopupOverlay"
+                tools:title="@string/mi_rutina" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -46,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/imagen_de_la_rutina"
         app:backgroundTint="@color/purple_500"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|end"
@@ -69,14 +70,14 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Esta es la descricpcion de la rutina y esta guapisima " />
+                tools:text="@string/descripcion"/>
 
             <TextView
                 android:id="@+id/tvRoutineLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                tools:text="Nivel de la rutina" />
+                tools:text="@string/facil"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvEquipment"

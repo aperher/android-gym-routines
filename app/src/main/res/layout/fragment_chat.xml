@@ -1,55 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="#F8F3ED">
+    android:background="#F8F3ED"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvChat"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:background="#212529"
-        android:textColor="#F8F3ED"
-        android:textStyle="bold"
-        android:textSize="20sp"
         android:padding="10dp"
         android:text="@string/chat"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#F8F3ED"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="10dp"
+        android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/tvChat"
-        app:layout_constraintBottom_toTopOf="@id/messageLinearLayout"
         tools:listitem="@layout/chat_item" />
 
     <LinearLayout
         android:id="@+id/messageLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
         android:paddingHorizontal="10dp">
 
         <EditText
             android:id="@+id/EtextMessage"
-            android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:hint="@string/escribe_un_mensaje" />
+            android:hint="@string/escribe_un_mensaje"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/btnSend"

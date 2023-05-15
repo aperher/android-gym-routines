@@ -9,4 +9,4 @@
     android:clickable="false"
     android:paddingHorizontal="8dp"
     android:paddingVertical="4dp"
-    tools:text="Máquina" />
+    tools:text="@string/maquina" />

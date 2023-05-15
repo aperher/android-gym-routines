@@ -9,13 +9,12 @@
     tools:layout_editor_absoluteX="10dp"
     tools:layout_editor_absoluteY="0dp">
 
-
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView2"
+        android:id="@+id/mtvRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Registro"
+        android:text="@string/registro"
         android:textAllCaps="true"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -31,13 +30,13 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView2">
+        app:layout_constraintTop_toBottomOf="@+id/mtvRegistro">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Nombre"
+            android:hint="@string/nombre"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +53,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Correo"
+            android:hint="@string/correo_electronico"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +70,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Contraseña"
+            android:hint="@string/contrasenya"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="49dp"
             tools:layout_editor_absoluteY="438dp" />
@@ -90,7 +89,7 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Confirmar contraseña"
+            android:hint="@string/confirmar_contrasenya"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="49dp"
             tools:layout_editor_absoluteY="438dp" />
@@ -101,7 +100,7 @@
         android:layout_width="347dp"
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
-        android:text="Registrarse"
+        android:text="@string/registrarse"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +112,7 @@
         android:layout_height="70dp"
         android:background="#FDFDFD"
         android:shadowColor="#00FFFFFF"
-        android:text="Inciar sesión"
+        android:text="@string/iniciar_sesion"
         android:textColor="#9D6DE3"
         android:textStyle="bold"
         app:backgroundTint="#FDFDFD"

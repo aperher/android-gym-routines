@@ -14,7 +14,8 @@
         android:layout_height="113dp"
         android:background="#838383"
         android:src="@drawable/ropes"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/imagen_de_la_rutina" />
 
     <TextView
         android:id="@+id/title"

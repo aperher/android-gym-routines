@@ -27,14 +27,15 @@
                 android:layout_marginStart="15dp"
                 android:visibility="gone"
                 app:srcCompat="@drawable/arrow_back"
-                app:tint="#555555" />
+                app:tint="#555555"
+                android:contentDescription="@string/flecha_atras" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
-                app:defaultQueryHint="Buscar"
+                app:defaultQueryHint="@string/buscar"
                 app:iconifiedByDefault="false" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -53,7 +54,7 @@
                     android:id="@+id/chipMuscles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Todo el cuerpo"
+                    android:text="@string/todo_el_cuerpo"
                     app:closeIcon="@drawable/arrow_down"
                     app:closeIconEnabled="true" />
 
@@ -61,7 +62,7 @@
                     android:id="@+id/chipEquipment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cualquier equipamiento"
+                    android:text="@string/cualquier_equipamiento"
                     app:closeIcon="@drawable/arrow_down"
                     app:closeIconEnabled="true" />
 
@@ -69,7 +70,7 @@
                     android:id="@+id/chipLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Todos los niveles"
+                    android:text="@string/todos_los_niveles"
                     app:closeIcon="@drawable/arrow_down"
                     app:closeIconEnabled="true" />
             </com.google.android.material.chip.ChipGroup>

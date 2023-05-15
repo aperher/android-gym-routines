@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Inicio sesión"
+        android:text="@string/inicio_sesion"
         android:textAllCaps="true"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Correo"
+            android:hint="@string/correo_electronico"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +52,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Contraseña"
+            android:hint="@string/contrasenya"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="49dp"
             tools:layout_editor_absoluteY="438dp" />
@@ -63,7 +63,7 @@
         android:layout_width="347dp"
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
-        android:text="Iniciar sesión"
+        android:text="@string/iniciar_sesion"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
         android:layout_width="347dp"
         android:layout_height="70dp"
         android:background="#FEFEFE"
-        android:text="Registrarse"
+        android:text="@string/registrarse"
         android:textColor="#6200ED"
         android:textStyle="bold"
         app:backgroundTint="#FEFEFE"
@@ -82,15 +82,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="(Aquí se podría añadir inicio de sesión con google o lo que sea)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

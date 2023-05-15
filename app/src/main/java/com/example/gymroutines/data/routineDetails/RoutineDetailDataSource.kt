@@ -7,5 +7,5 @@ interface RoutineDetailDataSource {
     fun addFavourite(idRoutine: String)
     fun removeFavourite(idRoutine: String)
     fun deleteRoutine(idRoutine: String)
-    fun getRoutine(idRoutine: String) : Flow<RoutineDetail>
+    fun getRoutine(idRoutine: String): Flow<RoutineDetail>
 }
