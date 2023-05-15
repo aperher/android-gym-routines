@@ -1,7 +1,6 @@
 package com.example.gymroutines.data.routinesCreate
 
 
-import android.util.Log
 import com.example.gymroutines.model.Routine
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -10,12 +9,17 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class RoutinesCreateDataSourceImpl @Inject constructor(
-    private val firestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth
+    private val firestore: FirebaseFirestore, private val firebaseAuth: FirebaseAuth
 
 ) : RoutinesCreateDataSource {
     private val COLLECTION_ROUTINES = "routines"
     private val COLLECTION_CATALOG = "routinesCatalogs"
+
+    /**
+     * Método para crear un rutina en BD en la colleción de las rutinas y añadirla a los catálogos necesarios
+     * @param routine La rutina a crear.
+     * return true si se ha creado correctamente, false en caso contrario.
+     */
     override suspend fun createRoutine(routine: Routine): Boolean = runCatching {
         val userId = firebaseAuth.currentUser?.email!!
         routine.userId = userId
@@ -26,18 +30,14 @@ class RoutinesCreateDataSourceImpl @Inject constructor(
             nuevoObjeto["title"] = routine.title
 
 
-            firestore.collection(COLLECTION_CATALOG).get()
-                .addOnSuccessListener { querySnapshot ->
+            firestore.collection(COLLECTION_CATALOG).get().addOnSuccessListener { querySnapshot ->
                     for (document in querySnapshot) {
                         if (document.get("userId") == routine.userId) {
                             document.reference.update(
-                                "routinesPreview",
-                                FieldValue.arrayUnion(nuevoObjeto)
-                            )
-                                .addOnSuccessListener {
+                                "routinesPreview", FieldValue.arrayUnion(nuevoObjeto)
+                            ).addOnSuccessListener {
                                     println("Documento catalogo personal actualizado")
-                                }
-                                .addOnFailureListener { exception ->
+                                }.addOnFailureListener { exception ->
                                     println("Error al actualizar el documento catalogo personal: $exception")
                                 }
                         }

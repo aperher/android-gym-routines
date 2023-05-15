@@ -30,6 +30,10 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
     private val FIELD_FAVOURITES = "favourites"
     private val ALL = "all"
 
+    /**
+     * Metodo para obtener las rutinas del catalogo de la base de datos
+     * @return Lista de catalogos
+     */
     override fun getRoutinesCatalog(): Flow<List<CatalogDto>> = callbackFlow {
         val query = fireStore.collection(COLLECTION_CATALOGS)
             .whereIn(FIELD_USER_ID, listOf(userId, ALL))
@@ -51,6 +55,11 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
         awaitClose { registration.remove() }
     }.flowOn(Dispatchers.IO)
 
+    /**
+     * Método para obtener las rutinas de un catalogo de la base de datos
+     * @param catalogTitle Titulo del catalogo
+     * @return Lista de rutinas
+     */
     override suspend fun getRoutinesByCatalog(catalogTitle: CatalogType): Result<List<RoutinePreviewDto>> =
         runCatching {
             val query: Query = when (catalogTitle) {
@@ -78,6 +87,11 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
             routines
         }
 
+    /**
+     * Método para obtener rutinas en función de los filtros
+     * @param filters Filtros a aplicar
+     * @return Lista de rutinas filtradas
+     */
     override suspend fun getFilteredRoutines(filters: Map<FilterType, MutableList<String>>): Result<List<RoutinePreviewDto>> =
         runCatching {
             // Realizar filtrado por muscles equipment y level
@@ -85,15 +99,27 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
             var query: Query = baseQuery
 
             if (!filters[FilterType.Equipment].isNullOrEmpty()) {
-                val equipmentList = filters[FilterType.Equipment]!!.map { element -> Equipment.values().find { it.value == element }.toString() }
-                query = query.whereArrayContainsAny(FilterType.Equipment.toString().lowercase(), equipmentList)
+                val equipmentList = filters[FilterType.Equipment]!!.map { element ->
+                    Equipment.values().find { it.value == element }.toString()
+                }
+                query = query.whereArrayContainsAny(
+                    FilterType.Equipment.toString().lowercase(),
+                    equipmentList
+                )
             }
             if (!filters[FilterType.Muscles].isNullOrEmpty()) {
-                val musclesList = filters[FilterType.Muscles]!!.map { element -> Muscles.values().find { it.value == element }.toString() }
-                query = query.whereArrayContainsAny(FilterType.Muscles.toString().lowercase(), musclesList)
+                val musclesList = filters[FilterType.Muscles]!!.map { element ->
+                    Muscles.values().find { it.value == element }.toString()
+                }
+                query = query.whereArrayContainsAny(
+                    FilterType.Muscles.toString().lowercase(),
+                    musclesList
+                )
             }
             if (!filters[FilterType.Level].isNullOrEmpty()) {
-                val levelList = filters[FilterType.Level]!!.map { element -> Level.values().find { it.value == element }.toString() }
+                val levelList = filters[FilterType.Level]!!.map { element ->
+                    Level.values().find { it.value == element }.toString()
+                }
                 query = query.whereIn(FilterType.Level.toString().lowercase(), levelList)
             }
             val routines = query.get().await().documents.map {
@@ -102,7 +128,14 @@ class RoutinesCatalogDataSourceImpl @Inject constructor(
             routines
         }
 
-    override suspend fun searchRoutines(title: String): Result<List<RoutinePreviewDto>> = runCatching {
-        fireStore.collection(COLLECTION_ROUTINES).whereEqualTo(FIELD_TITLE, title).get().await().toObjects(RoutinePreviewDto::class.java)
-    }
+    /**
+     * Metodo para buscar rutinas a partir del buscador
+     * @param title Titulo de la rutina
+     * @return Lista de rutinas
+     */
+    override suspend fun searchRoutines(title: String): Result<List<RoutinePreviewDto>> =
+        runCatching {
+            fireStore.collection(COLLECTION_ROUTINES).whereEqualTo(FIELD_TITLE, title).get().await()
+                .toObjects(RoutinePreviewDto::class.java)
+        }
 }

@@ -1,33 +1,32 @@
 package com.example.gymroutines.data.chat
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+
 import com.example.gymroutines.data.chat.model.MessagesDto
 import com.example.gymroutines.data.profile.ProfileRepository
 import com.example.gymroutines.model.Messages
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
-import io.grpc.okhttp.internal.Platform
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import java.util.*
-import java.util.logging.Level
+
 
 class ChatDataSourceImpl @Inject constructor(
-    private val auth: FirebaseAuth,
     private val db: FirebaseFirestore,
     private val profile: ProfileRepository
 ) : ChatDataSource {
     var userName = ""
     var imageUrl = ""
+
+    /**
+     * Método para obtener todos mensajes de BD
+     * @return Lista de mensajes
+     */
     override fun getMessages(): Flow<MessagesDto> = callbackFlow {
         val query = db.collection("messages").document("messages")
         val registration = query.addSnapshotListener { snapshot, exception ->
@@ -42,10 +41,13 @@ class ChatDataSourceImpl @Inject constructor(
         awaitClose { registration.remove() }
     }.flowOn(Dispatchers.IO)
 
+    /**
+     * Método para crear un mensaje en BD
+     * @return Booleano indicando si se ha creado correctamente
+     */
     override fun createMessage(text: String): Boolean = runCatching {
         val id = randomString(20)
         val message = Messages(userName, text, id, imageUrl)
-        Platform.logger.log(Level.INFO, message.id.toString())
         db.collection("messages").document("messages")
             .update("messages", FieldValue.arrayUnion(message))
     }.isSuccess

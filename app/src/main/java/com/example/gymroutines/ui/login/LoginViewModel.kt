@@ -23,14 +23,25 @@ class LoginViewModel @Inject constructor(private val authRepository: AuthReposit
     private var _goToHome = MutableLiveData<Event<Boolean>>()
     val goToHome: LiveData<Event<Boolean>> get() = _goToHome
 
+    /**
+     * Setea el email.
+     * @param email el valor del email.
+     */
     fun setEmail(email: String) {
         _email.value = email
     }
 
+    /**
+     * Setea la contraseña.
+     * @param password valor de la contraseña.
+     */
     fun setPassword(password: String) {
         _password.value = password
     }
 
+    /**
+     * Meotodo que Loguea al usuario.
+     */
     fun login() {
         viewModelScope.launch {
             val logged : Boolean = authRepository.login(_email.value!!, _password.value!!)

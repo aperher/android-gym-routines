@@ -28,7 +28,6 @@ class ExercisesCatalogAdapter(
             )
         )
     }
-
     override fun onBindViewHolder(holder: ExercisesCatalogAdapter.ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -56,7 +55,6 @@ class ExercisesCatalogAdapter(
                 }
             }
         }
-
         @SuppressLint("SetTextI18n")
         fun bind(exercise: Exercise) {
             binding.cbExercise.isVisible = isAdded(exercise)

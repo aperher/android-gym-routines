@@ -21,15 +21,25 @@ class ChatViewModel @Inject constructor(
     private var _exception = MutableLiveData<Throwable?>(null)
     val exception get() = _exception
 
+    /**
+     * Establece el texto del mensaje en el ViewModel y actualiza el estado de _isTextEmpty.
+     * @param text El texto del mensaje.
+     */
     fun setTextMessage(text: String) {
         _textMessage.value = text
         _isTextEmpty.value = text.isEmpty()
     }
 
+    /**
+     * Crea un nuevo mensaje utilizando el texto actual del mensaje en _textMessage.
+     */
     fun createMessage() {
         repository.createMessage(_textMessage.value!!)
     }
 
+    /**
+     * Restablece el valor de _exception a null.
+     */
     fun resetError() {
         exception.value = null
     }

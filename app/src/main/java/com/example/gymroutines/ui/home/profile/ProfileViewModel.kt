@@ -26,6 +26,11 @@ class ProfileViewModel @Inject constructor(
         getUser()
     }
 
+    /**
+     * Obtiene los datos del usuario desde el repositorio de perfil.
+     * En caso de éxito, actualiza el valor de _currentuser.
+     * En caso de error, establece el valor de _exception.
+     */
     fun getUser() {
         viewModelScope.launch {
             repository.getUser().fold(onSuccess = {
@@ -36,6 +41,10 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Devuelve el nombre de usuario.
+     * @return El nombre de usuario, o una cadena vacía si el valor de user es nulo.
+     */
     fun updatedUserName(): String {
         if (user.value != null) {
             return user.value!!.username
@@ -43,10 +52,16 @@ class ProfileViewModel @Inject constructor(
         return ""
     }
 
+    /**
+     * Método para cerrar sesion del usuario
+     */
     fun closeSession() {
         auth.logout()
     }
 
+    /**
+     * Restablece el valor de _exception a null.
+     */
     fun resetError() {
         exception.value = null
     }
