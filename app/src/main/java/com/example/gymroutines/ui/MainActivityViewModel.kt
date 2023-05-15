@@ -16,6 +16,9 @@ class MainActivityViewModel @Inject constructor(private val auth: FirebaseAuth) 
         checkIfUserIsLoggedIn()
     }
 
+    /**
+     * Verifica si el usuario está logueado.
+     */
     private fun checkIfUserIsLoggedIn() {
         if (auth.currentUser != null) _goToHome.value = Event(true)
     }

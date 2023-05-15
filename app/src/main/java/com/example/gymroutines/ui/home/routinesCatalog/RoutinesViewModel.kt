@@ -61,6 +61,10 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         }
     }
 
+    /**
+     * Aplica el filtro especificado.
+     * @param filterType El tipo de filtro.
+     */
     fun openFilter(filterType: FilterType) {
         this.filterType = filterType
         when (filterType) {
@@ -80,6 +84,10 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         _goToBottomSheetFilter.value = Event(true)
     }
 
+    /**
+     * Metodo para buscar rutinas en funcion de su nombre.
+     * @param name El nombre de la rutina.
+     */
     fun search(name: String) {
         viewModelScope.launch {
             Log.d("RoutinesViewModel", "search: $name")
@@ -91,6 +99,10 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         }
     }
 
+    /**
+     * Método para añadir un filtro a la lista de filtros seleccionados.
+     * @param filter El filtro a añadir.
+     */
     fun addFilter(filter: String) {
         if (bsSelectedItems[filterType]?.contains(filter) == true) {
             bsSelectedItems[filterType]?.remove(filter)
@@ -101,6 +113,9 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         }
     }
 
+    /**
+     * Método para mostrar las rutinas filtradas accediendo al repositorio .
+     */
     fun showFilteredRoutines() {
         for (filter in bsSelectedItems) {
             if (filter.value.isEmpty()) {
@@ -119,10 +134,16 @@ class RoutinesViewModel @Inject constructor(private val repository: RoutinesCata
         }
     }
 
+    /**
+     * Muestra el catálogo de rutinas.
+     */
     fun showCatalog() {
         _routinesList.value = null
     }
 
+    /**
+     * Método para resetear el error.
+     */
     fun resetError() {
         exception.value = null
     }

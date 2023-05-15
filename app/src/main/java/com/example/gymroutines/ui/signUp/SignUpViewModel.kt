@@ -33,22 +33,37 @@ class SignUpViewModel @Inject constructor(private val authRepository: AuthReposi
     private var _goToHome = MutableLiveData<Event<Boolean>>()
     val goToHome: LiveData<Event<Boolean>> get() = _goToHome
 
+    /**
+     * Establece el nombre de usuario.
+     */
     fun setName(username: String) {
         _username.value = username
     }
 
+    /**
+     * Establece email del usuario.
+     */
     fun setEmail(email: String) {
         _email.value = email
     }
 
+    /**
+     * Establece la contraseña del usuario.
+     */
     fun setPassword(password: String) {
         _password.value = password
     }
 
+    /**
+     * Establece la confirmación de contraseña.
+     */
     fun setConfirmPassword(password: String) {
         _confirmPassword.value = password
     }
 
+    /**
+     * Realiza el proceso de registro accediendo al authRepository.
+     */
     fun signUp() {
         viewModelScope.launch {
             val strings = listOf("Perfil1", "Perfil2", "Perfil3", "Perfil4")

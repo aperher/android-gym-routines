@@ -46,26 +46,49 @@ class RoutineCreateViewModel @Inject constructor(
         getExercises()
     }
 
+    /**
+     * Setea el nombre de la rutina.
+     * @param routineName El nombre de la rutina.
+     */
     fun setName(routineName: String) {
         _routineName.value = routineName
     }
 
+    /**
+     * Setea la descripcción de la rutina.
+     * @param description la descripcción de la rutina.
+     */
     fun setDescription(description: String) {
         _routineDescription.value = description
     }
 
+    /**
+     * Setea si la rutina es pública o privada.
+     * @param isPublic Indica si la rutina es pública.
+     */
     fun setPublic(isPublic: Boolean) {
         _routinePublic.value = isPublic
     }
 
+    /**
+     * Setea la duración de la rutina.
+     * @param duration La duración de la rutina.
+     */
     fun setDuration(duration: String) {
         _routineDuration.value = duration
     }
 
+    /**
+     * Setea el ejercicio activo.
+     * @param exercise El ejercicio activo.
+     */
     fun setActiveExercise(exercise: RoutineExercisePreview) {
         _activeExercise.value = exercise
     }
 
+    /**
+     * Obtiene la lista de ejercicios desde el repositorio de ejercicios ç.
+     */
     fun getExercises() {
         viewModelScope.launch {
             exercisesRepository.getExercises().fold(onSuccess = {
@@ -76,6 +99,9 @@ class RoutineCreateViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Crea la rutina en el repositorio de rutinas.
+     */
     fun createRoutine() {
         viewModelScope.launch {
             routineRepository.createRoutine(getRoutine())
@@ -103,6 +129,10 @@ class RoutineCreateViewModel @Inject constructor(
         _goToSeries.value = Event(exercise)
     }
 
+    /**
+     * Método para crear objeto rutina y pasarselo al repositorio para crear rutina
+     * @return Objeto rutina
+     */
     private fun getRoutine(): Routine {
         val strings = listOf("gym1", "gym2", "gym3", "gym4")
         val randomIndex = Random.nextInt(strings.size)
@@ -121,6 +151,9 @@ class RoutineCreateViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Método para resetear el error
+     */
     fun resetError() {
         exception.value = null
     }

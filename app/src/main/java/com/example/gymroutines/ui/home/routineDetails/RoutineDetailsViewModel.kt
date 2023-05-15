@@ -30,12 +30,24 @@ class RoutineDetailsViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Elimina la rutina llamando al método del repositorio de rutinas.
+     */
     fun deleteRoutine() {
         repository.deleteRoutine(routineId!!)
     }
 
+    /**
+     * Método para saber si el usuario actual es el autor de la rutina.
+     * @return true si el usuario actual es el autor de la rutina, false en caso contrario.
+     */
     fun isAuthor(routineUser: String): Boolean = routineUser == authRepository.getUser()
 
+    /**
+     * Método para obtener la rutina accediendo al repostorio de rutinas.
+     * @param idRoutine El id de la rutina.
+     * @return La rutina.
+     */
     fun getRoutineId(idRoutine: String): LiveData<RoutineDetail> {
         routineId = idRoutine
         val routineFlow = repository.getRoutine(idRoutine)
